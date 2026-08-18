@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: 'Análisis Predictivo' | 'Business Intelligence' | 'Segmentación & Marketing' | 'ETL & Analytics';
+  category: 'Análisis Predictivo' | 'Business Intelligence' | 'Segmentación & Marketing' | 'ETL & Analytics' | 'Limpieza de datos';
   shortDescription: string;
   fullDescription: string;
   businessImpact: string; // e.g., "Reducción de churn en un 18.5%"

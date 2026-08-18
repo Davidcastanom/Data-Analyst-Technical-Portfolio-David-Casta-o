@@ -13,9 +13,9 @@
   --color-card: #FFFFFF;
   --color-card-hover: #F1F5F9;
   --color-border: #E2E8F0;
-  --color-muted: #E9EEF6;
+  --color-muted: #F1F5F9;
   --color-text: #1E293B;
-  --color-text-secondary: #64748B;
+  --color-text-secondary: #475569;
   --color-surface: rgba(255, 255, 255, 0.8);
   --glass-blur: 12px;
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -120,10 +120,9 @@ html.dark ::selection {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  .animate-gradient,
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none !important;
   }
 }

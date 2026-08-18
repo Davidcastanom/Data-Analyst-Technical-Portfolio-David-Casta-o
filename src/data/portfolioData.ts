@@ -39,7 +39,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
     {
       id: 'proyecto-1-AuditdataAI-Dataclinig report',
       title: 'AuditdataAI-Data cleaning Report',
-      category: 'Liempieza de datos',
+      category: 'Limpieza de datos',
       shortDescription: 'Herra',
       fullDescription: 'Este proyecto analiza una base de más de 10,000 clientes telefónicos utilizando SQL para la extracción y limpieza, y Python (Pandas y Scikit-Learn) para el análisis exploratorio (EDA) y entrenamiento de un modelo Random Forest de clasificación.',
       businessImpact: 'Ahorro estimado de $145K USD anuales al reducir la fuga de clientes de mayor valor en un 18.5%.',
