@@ -16,17 +16,17 @@ import { PortfolioConfig } from '../types/portfolio';
 
 export const initialPortfolioConfig: PortfolioConfig = {
   user: {
-    name: 'Esteban',
-    title: 'Analista de Datos',
-    specialty: 'Business Intelligence, SQL & Analytics Predictivo',
-    bio: 'Transformo datos complejos en decisiones estratégicas de negocio. Especializado en modelado de datos, tableros interactivos en Power BI/Tableau y automatización de análisis con SQL y Python.',
+    name: 'David Castaño',
+    title: 'Analista de Datos Junior',
+    specialty: 'Business Intelligence, Vibe Coding',
+    bio: 'Transformo datos complejos en decisiones estratégicas de negocio. Especializado en modelado de datos, tableros interactivos y automatización de análisis con vibe coding.',
     aboutLong: 'Con experiencia analizando grandes volúmenes de datos en sectores clave. Apasionado por descubrir insights ocultos, optimizar procesos de negocio y construir dashboards intuitivos que capaciten a los líderes para tomar decisiones informadas basadas en evidencia.',
     email: 'Esteban7005808@gmail.com',
-    phone: '+57 300 123 4567',
+    phone: '+57 301 684 4364',
     location: 'Colombia (Disponible Remoto)',
     availability: 'Disponible para Proyectos & Tiempo Completo',
-    yearsOfExperience: 4,
-    projectsCompleted: 18,
+    yearsOfExperience: 1,
+    projectsCompleted: 3,
     githubUrl: 'https://github.com/Esteban7005808',
     linkedinUrl: 'https://linkedin.com/in/esteban-data-analyst',
     notionPortfolioUrl: 'https://notion.so/esteban-data-portfolio',
@@ -37,10 +37,10 @@ export const initialPortfolioConfig: PortfolioConfig = {
 
   projects: [
     {
-      id: 'proyecto-1-churn-telecom',
-      title: 'Análisis Predictivo de Fuga de Clientes (Churn Telecom)',
-      category: 'Análisis Predictivo',
-      shortDescription: 'Modelo predictivo y dashboard ejecutivo para identificar patrones de cancelación de clientes y proponer estrategias de retención focalizadas.',
+      id: 'proyecto-1-AuditdataAI-Dataclinig report',
+      title: 'AuditdataAI-Data cleaning Report',
+      category: 'Liempieza de datos',
+      shortDescription: 'Herra',
       fullDescription: 'Este proyecto analiza una base de más de 10,000 clientes telefónicos utilizando SQL para la extracción y limpieza, y Python (Pandas y Scikit-Learn) para el análisis exploratorio (EDA) y entrenamiento de un modelo Random Forest de clasificación.',
       businessImpact: 'Ahorro estimado de $145K USD anuales al reducir la fuga de clientes de mayor valor en un 18.5%.',
       keyMetrics: [
