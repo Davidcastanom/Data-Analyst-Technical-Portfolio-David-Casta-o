@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { UserProfile, Project } from '../types/portfolio';
 import { 
   BarChart3, 
@@ -15,22 +15,12 @@ import {
   FileSpreadsheet,
   Sliders
 } from 'lucide-react';
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 interface HeroSectionProps {
   user: UserProfile;
   projects: Project[];
   onOpenConfigurator: () => void;
 }
-
-const sampleChartData = [
-  { month: 'Ene', churnRate: 24, salesKPI: 42, efficiency: 55 },
-  { month: 'Feb', churnRate: 22, salesKPI: 48, efficiency: 62 },
-  { month: 'Mar', churnRate: 19, salesKPI: 58, efficiency: 70 },
-  { month: 'Abr', churnRate: 16, salesKPI: 65, efficiency: 78 },
-  { month: 'May', churnRate: 14, salesKPI: 76, efficiency: 85 },
-  { month: 'Jun', churnRate: 11, salesKPI: 88, efficiency: 94 },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -57,8 +47,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   projects, 
   onOpenConfigurator 
 }) => {
-  const [activeTab, setActiveTab] = useState<'kpi' | 'sql' | 'notion'>('kpi');
-
   return (
     <section id="inicio" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[var(--color-bg)] transition-colors duration-300">
       {/* Animated Background Gradient */}
@@ -171,177 +159,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           </motion.div>
 
-          {/* Right Column: Interactive Live Data Preview Widget */}
+          {/* Right Column: Profile Photo */}
           <motion.div 
-            className="lg:col-span-5"
+            className="lg:col-span-5 flex justify-center"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <div className="relative rounded-2xl glass-card p-5 shadow-xl">
-              
-              {/* Header Widget */}
-              <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3 mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[var(--color-accent)]" />
-                  <div className="w-3 h-3 rounded-full bg-[var(--color-success)]" />
-                  <div className="w-3 h-3 rounded-full bg-[var(--color-primary)]" />
-                  <span className="text-xs font-mono text-[var(--color-text-secondary)] ml-2">live_data_analyst_dashboard.py</span>
-                </div>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 font-medium">
-                  Real-time Insights
+            <div className="relative">
+              <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden glass-card shadow-2xl animate-float">
+                <img 
+                  src="https://res.cloudinary.com/unhl90nr/image/upload/v1787090577/foto-perfil_xlp1xx.jpg" 
+                  alt="David Castaño — Analista de Datos Junior"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-full glass-card border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-secondary)] shadow-lg">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+                  En formación activa
                 </span>
               </div>
-
-              {/* Selector Tabs */}
-              <div className="flex bg-[var(--color-muted)] p-1 rounded-xl mb-4 border border-[var(--color-border)] text-xs">
-                {(['kpi', 'sql', 'notion'] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className="relative flex-1 py-1.5 rounded-lg font-semibold transition-colors"
-                    style={{ 
-                      color: activeTab === tab ? 'white' : 'var(--color-text-secondary)',
-                      fontFamily: "'Space Grotesk', sans-serif"
-                    }}
-                  >
-                    {activeTab === tab && (
-                      <motion.div
-                        layoutId="tab-pill"
-                        className="absolute inset-0 bg-[var(--color-primary)] rounded-lg"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative z-10">
-                      {tab === 'kpi' ? 'KPIs & Tendencias' : tab === 'sql' ? 'Query SQL' : 'Notion Embed'}
-                    </span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Content with AnimatePresence */}
-              <AnimatePresence mode="wait">
-                {activeTab === 'kpi' && (
-                  <motion.div
-                    key="kpi"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-4"
-                  >
-                    <div className="flex items-center justify-between text-xs text-[var(--color-text-secondary)]">
-                      <span className="flex items-center gap-1 font-medium">
-                        <TrendingUp className="w-3.5 h-3.5 text-[var(--color-success)]" />
-                        Optimización de Fuga de Clientes vs Eficiencia (%)
-                      </span>
-                      <span className="text-[var(--color-success)] font-bold">+38.5% Eficiencia</span>
-                    </div>
-
-                    <div className="h-48 w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={sampleChartData}>
-                          <defs>
-                            <linearGradient id="colorEfficiency" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#1E40AF" stopOpacity={0.35}/>
-                              <stop offset="95%" stopColor="#1E40AF" stopOpacity={0}/>
-                            </linearGradient>
-                            <linearGradient id="colorChurn" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#059669" stopOpacity={0.35}/>
-                              <stop offset="95%" stopColor="#059669" stopOpacity={0}/>
-                            </linearGradient>
-                          </defs>
-                          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" opacity={0.5} />
-                          <XAxis dataKey="month" stroke="var(--color-text-secondary)" fontSize={10} />
-                          <YAxis stroke="var(--color-text-secondary)" fontSize={10} />
-                          <Tooltip 
-                            contentStyle={{ backgroundColor: 'var(--color-card)', borderColor: 'var(--color-border)', borderRadius: '12px', fontSize: '12px', color: 'var(--color-text)', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                            itemStyle={{ color: 'var(--color-text-secondary)' }}
-                          />
-                          <Area type="monotone" dataKey="efficiency" stroke="#1E40AF" strokeWidth={2} fillOpacity={1} fill="url(#colorEfficiency)" name="Eficiencia BI" />
-                          <Area type="monotone" dataKey="salesKPI" stroke="#059669" strokeWidth={2} fillOpacity={1} fill="url(#colorChurn)" name="Retención (%)" />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-                      <div className="p-2.5 rounded-xl glass-card border border-[var(--color-border)]">
-                        <span className="text-[var(--color-text-secondary)] block text-[10px] font-medium">Métrica Clave</span>
-                        <span className="font-semibold text-[var(--color-text)]">Retención de Clientes</span>
-                        <span className="text-[var(--color-success)] block font-bold text-sm">88.6% (+14%)</span>
-                      </div>
-                      <div className="p-2.5 rounded-xl glass-card border border-[var(--color-border)]">
-                        <span className="text-[var(--color-text-secondary)] block text-[10px] font-medium">Modelo Predictivo</span>
-                        <span className="font-semibold text-[var(--color-text)]">Precisión Random Forest</span>
-                        <span className="text-[var(--color-primary)] block font-bold text-sm">ROC-AUC: 0.89</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === 'sql' && (
-                  <motion.div
-                    key="sql"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-slate-900 dark:bg-slate-950 p-4 rounded-xl text-xs font-mono text-slate-200 space-y-2 overflow-x-auto shadow-inner border border-slate-800"
-                  >
-                    <p className="text-slate-400">// Consulta SQL para segmentación de clientes RFM</p>
-                    <p><span className="text-indigo-400">WITH</span> Customer_RFM <span className="text-indigo-400">AS</span> (</p>
-                    <p className="pl-4">
-                      <span className="text-indigo-400">SELECT</span> customer_id,
-                    </p>
-                    <p className="pl-8 text-amber-300">
-                      <span className="text-cyan-300">NTILE</span>(5) <span className="text-cyan-300">OVER</span> (<span className="text-indigo-400">ORDER BY</span> <span className="text-cyan-300">MAX</span>(order_date) <span className="text-indigo-400">DESC</span>) <span className="text-indigo-400">AS</span> recency_score,
-                    </p>
-                    <p className="pl-8 text-amber-300">
-                      <span className="text-cyan-300">NTILE</span>(5) <span className="text-cyan-300">OVER</span> (<span className="text-indigo-400">ORDER BY</span> <span className="text-cyan-300">COUNT</span>(order_id) <span className="text-indigo-400">DESC</span>) <span className="text-indigo-400">AS</span> frequency_score,
-                    </p>
-                    <p className="pl-8 text-amber-300">
-                      <span className="text-cyan-300">NTILE</span>(5) <span className="text-cyan-300">OVER</span> (<span className="text-indigo-400">ORDER BY</span> <span className="text-cyan-300">SUM</span>(total_amount) <span className="text-indigo-400">DESC</span>) <span className="text-indigo-400">AS</span> monetary_score
-                    </p>
-                    <p className="pl-4"><span className="text-indigo-400">FROM</span> sales_transactions</p>
-                    <p className="pl-4"><span className="text-indigo-400">GROUP BY</span> customer_id</p>
-                    <p>)</p>
-                    <p><span className="text-indigo-400">SELECT</span> * <span className="text-indigo-400">FROM</span> Customer_RFM;</p>
-                  </motion.div>
-                )}
-
-                {activeTab === 'notion' && (
-                  <motion.div
-                    key="notion"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="bg-[var(--color-muted)] p-4 rounded-xl border border-[var(--color-border)] space-y-3 text-xs"
-                  >
-                    <div className="flex items-center gap-2 text-purple-700 dark:text-purple-400 font-bold">
-                      <BookOpen className="w-4 h-4" />
-                      <span>Integración Directa con Notion</span>
-                    </div>
-                    <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                      Cada proyecto del portafolio incluye una vista modal interactiva que embebe tu documentación técnica pública compartida en Notion mediante un <code className="glass-card px-1 py-0.5 rounded border border-[var(--color-border)] font-mono">&lt;iframe&gt;</code>.
-                    </p>
-                    <div className="p-3 bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800 rounded-lg text-purple-900 dark:text-purple-200">
-                      <span className="font-bold block mb-1">Cómo funciona:</span>
-                      Haz clic en "Ver Documentación en Notion" en cualquiera de los 3 proyectos para abrir el visor en tiempo real.
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Footer status bar */}
-              <div className="mt-4 pt-3 border-t border-[var(--color-border)] flex items-center justify-between text-[11px] text-[var(--color-text-secondary)]">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-success)]" />
-                  PostgreSQL & Power BI Conectados
-                </span>
-                <span className="font-mono text-[var(--color-text-secondary)]">v2.4.0</span>
-              </div>
-
             </div>
           </motion.div>
 
