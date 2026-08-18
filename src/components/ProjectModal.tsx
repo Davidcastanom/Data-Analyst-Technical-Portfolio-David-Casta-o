@@ -92,7 +92,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20">
                     {project.category}
                   </span>
-                  <span className="text-xs font-mono hidden sm:inline-block" style={{ color: 'var(--color-muted)' }}>
+                  <span className="text-xs font-mono hidden sm:inline-block" style={{ color: 'var(--color-text-secondary)' }}>
                     id: {project.id}
                   </span>
                 </div>
@@ -147,7 +147,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 onClick={onClose}
                 title="Cerrar modal"
                 className="p-2 glass-card hover:opacity-80 transition-colors rounded-lg ml-1"
-                style={{ color: 'var(--color-muted)' }}
+                style={{ color: 'var(--color-text-secondary)' }}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -198,7 +198,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                       <p className="font-semibold" style={{ color: 'var(--color-text)' }}>
                         Visor en vivo de la documentación compartida en Notion
                       </p>
-                      <p className="leading-relaxed" style={{ color: 'var(--color-muted)' }}>
+                      <p className="leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
                         Si la vista previa no carga directamente dentro del iFrame debido a permisos de seguridad de Notion, haz clic en el botón <span className="font-semibold" style={{ color: 'var(--color-text)' }}>"Abrir en Notion"</span> superior para ver el documento completo en una nueva pestaña.
                       </p>
                     </div>
@@ -210,7 +210,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                       <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10" style={{ backgroundColor: 'var(--color-card)' }}>
                         <RefreshCw className="w-8 h-8 animate-spin" style={{ color: 'var(--color-primary)' }} />
                         <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Cargando documento de Notion...</p>
-                        <p className="text-xs max-w-md" style={{ color: 'var(--color-muted)' }}>
+                        <p className="text-xs max-w-md" style={{ color: 'var(--color-text-secondary)' }}>
                           Conectando con {project.notionUrl}
                         </p>
                       </div>
@@ -266,7 +266,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
                   {/* Full Description */}
                   <div className="space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-muted)' }}>
+                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
                       Descripción General del Análisis
                     </h4>
                     <p className="leading-relaxed p-4 rounded-xl border border-[var(--color-border)] shadow-sm" style={{ backgroundColor: 'var(--color-card)', color: 'var(--color-text-secondary)' }}>
@@ -276,13 +276,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
                   {/* Key Metrics Grid */}
                   <div className="space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-muted)' }}>
+                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
                       Indicadores Clave de Rendimiento (KPIs)
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {project.keyMetrics.map((metric, idx) => (
                         <div key={idx} className="p-3 rounded-xl border border-[var(--color-border)] text-center shadow-sm" style={{ backgroundColor: 'var(--color-card)' }}>
-                          <span className="text-xs block mb-1 font-medium" style={{ color: 'var(--color-muted)' }}>{metric.label}</span>
+                          <span className="text-xs block mb-1 font-medium" style={{ color: 'var(--color-text-secondary)' }}>{metric.label}</span>
                           <span className="text-lg font-extrabold font-mono" style={{ color: 'var(--color-accent)' }}>{metric.value}</span>
                         </div>
                       ))}
@@ -291,7 +291,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
                   {/* Highlights Bullet Points */}
                   <div className="space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-muted)' }}>
+                    <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
                       Puntos Destacados & Metodología Crisp-DM
                     </h4>
                     <div className="space-y-2">
@@ -308,7 +308,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   {project.datasetInfo && (
                     <div className="p-3 rounded-xl text-xs flex items-center gap-2 shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
                       <Database className="w-4 h-4 shrink-0" style={{ color: 'var(--color-accent)' }} />
-                      <span className="font-medium" style={{ color: 'var(--color-muted)' }}>Información del Dataset:</span>
+                      <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>Información del Dataset:</span>
                       <span className="font-mono font-semibold" style={{ color: 'var(--color-text)' }}>{project.datasetInfo}</span>
                     </div>
                   )}
@@ -337,23 +337,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <ol className="space-y-3 list-decimal list-inside">
                     <li className="p-3.5 rounded-xl border border-[var(--color-border)] space-y-1 shadow-sm" style={{ backgroundColor: 'var(--color-card)' }}>
                       <span className="font-bold" style={{ color: 'var(--color-text)' }}>1. Publica tu página en Notion:</span>
-                      <p className="pl-4" style={{ color: 'var(--color-muted)' }}>En Notion, abre la página de tu proyecto → Clic en el botón <strong>"Share"</strong> (Compartir) en la esquina superior derecha → Activa la opción <strong>"Share to web"</strong>.</p>
+                      <p className="pl-4" style={{ color: 'var(--color-text-secondary)' }}>En Notion, abre la página de tu proyecto → Clic en el botón <strong>"Share"</strong> (Compartir) en la esquina superior derecha → Activa la opción <strong>"Share to web"</strong>.</p>
                     </li>
 
                     <li className="p-3.5 rounded-xl border border-[var(--color-border)] space-y-1 shadow-sm" style={{ backgroundColor: 'var(--color-card)' }}>
                       <span className="font-bold" style={{ color: 'var(--color-text)' }}>2. Copia la URL pública:</span>
-                      <p className="pl-4" style={{ color: 'var(--color-muted)' }}>Haz clic en <strong>"Copy web link"</strong>. La URL lucirá similar a: <code className="px-1 py-0.5 rounded font-mono" style={{ color: 'var(--color-primary)', backgroundColor: 'var(--color-bg)' }}>https://tu-usuario.notion.site/Mi-Proyecto-123456</code>.</p>
+                      <p className="pl-4" style={{ color: 'var(--color-text-secondary)' }}>Haz clic en <strong>"Copy web link"</strong>. La URL lucirá similar a: <code className="px-1 py-0.5 rounded font-mono" style={{ color: 'var(--color-primary)', backgroundColor: 'var(--color-bg)' }}>https://tu-usuario.notion.site/Mi-Proyecto-123456</code>.</p>
                     </li>
 
                     <li className="p-3.5 rounded-xl border border-[var(--color-border)] space-y-1 shadow-sm" style={{ backgroundColor: 'var(--color-card)' }}>
                       <span className="font-bold" style={{ color: 'var(--color-text)' }}>3. Reemplaza la propiedad `notionUrl` en el archivo de datos:</span>
-                      <p className="pl-4" style={{ color: 'var(--color-muted)' }}>Abre <code className="px-1 py-0.5 rounded font-mono" style={{ color: 'var(--color-accent)', backgroundColor: 'var(--color-bg)' }}>src/data/portfolioData.ts</code> directamente en el código fuente.</p>
+                      <p className="pl-4" style={{ color: 'var(--color-text-secondary)' }}>Abre <code className="px-1 py-0.5 rounded font-mono" style={{ color: 'var(--color-accent)', backgroundColor: 'var(--color-bg)' }}>src/data/portfolioData.ts</code> directamente en el código fuente.</p>
                     </li>
                   </ol>
 
                   {/* Code Snippet Box */}
                   <div className="space-y-2">
-                    <span className="font-bold" style={{ color: 'var(--color-muted)' }}>Ejemplo de código en `src/data/portfolioData.ts`:</span>
+                    <span className="font-bold" style={{ color: 'var(--color-text-secondary)' }}>Ejemplo de código en `src/data/portfolioData.ts`:</span>
                     <pre className="p-4 rounded-xl border font-mono text-xs overflow-x-auto" style={{ backgroundColor: 'var(--color-card)', borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)' }}>
 {`{
   id: '${project.id}',

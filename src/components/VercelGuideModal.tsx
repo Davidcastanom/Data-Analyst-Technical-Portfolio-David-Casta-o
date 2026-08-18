@@ -152,19 +152,19 @@ git push origin main
                 </div>
                 <div className="grid grid-cols-2 gap-2 p-3 rounded-lg border border-[var(--color-border)] font-mono text-[11px]" style={{ backgroundColor: 'var(--color-card)' }}>
                   <div>
-                    <span className="block" style={{ color: 'var(--color-muted)' }}>Framework Preset:</span>
+                    <span className="block" style={{ color: 'var(--color-text-secondary)' }}>Framework Preset:</span>
                     <span className="font-bold" style={{ color: 'var(--color-success)' }}>Vite</span>
                   </div>
                   <div>
-                    <span className="block" style={{ color: 'var(--color-muted)' }}>Build Command:</span>
+                    <span className="block" style={{ color: 'var(--color-text-secondary)' }}>Build Command:</span>
                     <span className="font-semibold" style={{ color: 'var(--color-text)' }}>npm run build</span>
                   </div>
                   <div>
-                    <span className="block" style={{ color: 'var(--color-muted)' }}>Output Directory:</span>
+                    <span className="block" style={{ color: 'var(--color-text-secondary)' }}>Output Directory:</span>
                     <span className="font-semibold" style={{ color: 'var(--color-text)' }}>dist</span>
                   </div>
                   <div>
-                    <span className="block" style={{ color: 'var(--color-muted)' }}>Install Command:</span>
+                    <span className="block" style={{ color: 'var(--color-text-secondary)' }}>Install Command:</span>
                     <span className="font-semibold" style={{ color: 'var(--color-text)' }}>npm install</span>
                   </div>
                 </div>

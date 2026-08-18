@@ -110,7 +110,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
 
           {/* Live Tool Search Bar */}
           <div className="relative w-full md:w-64">
-            <Search className="w-4 h-4 text-[var(--color-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[var(--color-text-secondary)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Buscar herramienta (ej. SQL, DAX)..."
@@ -145,7 +145,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
                   >
                     {category.title}
                   </h3>
-                  <p className="text-xs text-[var(--color-muted)]">
+                  <p className="text-xs text-[var(--color-text-secondary)]">
                     {category.description}
                   </p>
                 </div>

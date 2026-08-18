@@ -94,7 +94,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                           <Calendar className="w-3 h-3" style={{ color: 'var(--color-primary)' }} />
                           {exp.period}
                         </span>
-                        <span className="text-[11px] flex items-center justify-end gap-1" style={{ color: 'var(--color-muted)' }}>
+                        <span className="text-[11px] flex items-center justify-end gap-1" style={{ color: 'var(--color-text-secondary)' }}>
                           <MapPin className="w-3 h-3" />
                           {exp.location}
                         </span>
@@ -168,7 +168,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         <h4 className="text-sm font-bold leading-snug" style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)' }}>
                           {cert.title}
                         </h4>
-                        <span className="text-xs font-medium block mt-0.5" style={{ color: 'var(--color-muted)' }}>
+                        <span className="text-xs font-medium block mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
                           {cert.issuer} • <span className="font-mono font-semibold" style={{ color: 'var(--color-accent)' }}>{cert.date}</span>
                         </span>
                       </div>

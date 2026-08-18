@@ -34,7 +34,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="px-3 py-1 rounded-full text-xs font-semibold glass-card border border-[var(--color-border)] text-[var(--color-text-secondary)] flex items-center gap-1.5">
-              <Layers className="w-3 h-3 text-[var(--color-muted)]" />
+              <Layers className="w-3 h-3 text-[var(--color-text-secondary)]" />
               {project.category}
             </span>
 
@@ -74,7 +74,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
         <div className="grid grid-cols-2 gap-2 pt-1">
           {project.keyMetrics.slice(0, 2).map((metric, idx) => (
             <div key={idx} className="p-2.5 rounded-lg glass-card border border-[var(--color-border)] text-left">
-              <span className="text-[10px] text-[var(--color-muted)] block truncate">{metric.label}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)] block truncate">{metric.label}</span>
               <span className="text-xs font-bold text-[var(--color-primary)] font-mono">{metric.value}</span>
             </div>
           ))}

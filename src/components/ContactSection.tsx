@@ -91,7 +91,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
 
               {/* Email Card with Copy Button */}
               <div className="p-4 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] space-y-2">
-                <span className="text-xs text-[var(--color-muted)] block font-medium">Correo Electrónico Directo</span>
+                <span className="text-xs text-[var(--color-text-secondary)] block font-medium">Correo Electrónico Directo</span>
                 <div className="flex items-center justify-between gap-2">
                   <a 
                     href={`mailto:${user.email}`} 
@@ -121,7 +121,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
                   >
                     <Phone className="w-4 h-4 text-[var(--color-success)] shrink-0" />
                     <div>
-                      <span className="text-[var(--color-muted)] block text-[10px]">Teléfono / WhatsApp</span>
+                      <span className="text-[var(--color-text-secondary)] block text-[10px]">Teléfono / WhatsApp</span>
                       <span className="font-semibold text-[var(--color-text)]">{user.phone}</span>
                     </div>
                   </motion.div>
@@ -134,7 +134,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
                 >
                   <MapPin className="w-4 h-4 text-[var(--color-primary)] shrink-0" />
                   <div>
-                    <span className="text-[var(--color-muted)] block text-[10px]">Ubicación & Modalidad</span>
+                    <span className="text-[var(--color-text-secondary)] block text-[10px]">Ubicación & Modalidad</span>
                     <span className="font-semibold text-[var(--color-text)]">{user.location}</span>
                   </div>
                 </motion.div>
@@ -142,7 +142,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
 
               {/* Social Buttons */}
               <div className="pt-2 border-t border-[var(--color-border)] space-y-2">
-                <span className="text-xs text-[var(--color-muted)] font-medium block">Redes Profesionales:</span>
+                <span className="text-xs text-[var(--color-text-secondary)] font-medium block">Redes Profesionales:</span>
                 <div className="flex gap-2">
                   <motion.a
                     href={user.linkedinUrl}

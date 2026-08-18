@@ -117,14 +117,14 @@ export const CVConfiguratorModal: React.FC<CVConfiguratorModalProps> = ({
                 </div>
                 <div>
                   <h2 className="text-lg font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)' }}>Personalizar Datos de Tu CV</h2>
-                  <p className="text-xs" style={{ color: 'var(--color-muted)' }}>Modifica tus datos o pega tu Hoja de Vida para adaptar el portafolio al instante.</p>
+                  <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>Modifica tus datos o pega tu Hoja de Vida para adaptar el portafolio al instante.</p>
                 </div>
               </div>
 
               <button
                 onClick={onClose}
                 className="p-2 glass-card hover:opacity-80 transition-colors rounded-xl"
-                style={{ color: 'var(--color-muted)' }}
+                style={{ color: 'var(--color-text-secondary)' }}
               >
                 <X className="w-5 h-5" />
               </button>
