@@ -33,7 +33,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
       ],
       tags: ['Python', 'FastAPI', 'Groq', 'Supabase', 'Playwright', 'PDF'],
       githubUrl: 'https://github.com/Davidcastanom/auditdata-ai',
-      notionUrl: 'https://github.com/Davidcastanom/auditdata-ai',
+      notionUrl: 'https://app.notion.com/p/AuditData-AI-3c0bc3ee367580ab939ff93526461c8d?source=copy_link',
       demoUrl: 'https://auditdata-ai-1.onrender.com',
       featured: true,
       imageBgGradient: 'from-blue-600 via-indigo-600 to-violet-700',
