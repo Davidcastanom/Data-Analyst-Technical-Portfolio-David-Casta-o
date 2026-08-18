@@ -40,7 +40,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   const notionEmbedUrl = getEmbeddableNotionUrl(project.notionUrl);
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(project.notionUrl);
+    const url = project.notionUrl || project.githubUrl || '';
+    navigator.clipboard.writeText(url);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
@@ -124,10 +125,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               </button>
 
               <a
-                href={project.notionUrl}
+                href={project.notionUrl || project.githubUrl || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Abrir página en Notion"
+                title="Abrir página"
                 className="p-2 glass-card hover:opacity-80 transition-colors rounded-lg"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
@@ -230,14 +231,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <div className="flex items-center justify-between p-3.5 rounded-xl text-xs shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
                     <span style={{ color: 'var(--color-text-secondary)' }}>¿Deseas editar o duplicar este proyecto en tu propia cuenta de Notion?</span>
                     <a
-                      href={project.notionUrl}
+                      href={project.notionUrl || project.githubUrl || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3.5 py-1.5 rounded-lg text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
                       style={{ backgroundColor: 'var(--color-primary)' }}
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
-                      Ver Página Oficial en Notion
+                      {project.notionUrl ? 'Ver Página Oficial en Notion' : 'Ver en GitHub'}
                     </a>
                   </div>
                 </motion.div>
