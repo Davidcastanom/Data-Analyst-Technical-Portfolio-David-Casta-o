@@ -33,11 +33,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   const getEmbeddableNotionUrl = (url: string) => {
     if (!url) return '';
-    if (url.includes('notion.so/embed/')) return url;
-    return url;
+    if (url.includes('notion.so') || url.includes('notion.site')) {
+      return url.includes('/embed/') ? url : url.replace(/\/p\//, '/embed/').replace(/\/$/, '');
+    }
+    return '';
   };
 
-  const notionEmbedUrl = getEmbeddableNotionUrl(project.notionUrl);
+  const isNotionUrl = project.notionUrl?.includes('notion') || false;
+  const notionEmbedUrl = getEmbeddableNotionUrl(project.notionUrl || '');
 
   const handleCopyLink = () => {
     const url = project.notionUrl || project.githubUrl || '';
@@ -47,9 +50,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   };
 
   const tabs = [
-    { id: 'iframe' as const, label: 'Documentación Notion (Embebida)', icon: BookOpen },
+    { id: 'iframe' as const, label: isNotionUrl ? 'Documentación Notion' : 'Documentación GitHub', icon: BookOpen },
     { id: 'summary' as const, label: 'Resumen Técnico & Impacto', icon: TrendingUp },
-    { id: 'config' as const, label: '¿Cómo cambiar la URL de Notion?', icon: Code },
   ];
 
   return (
@@ -192,55 +194,100 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   transition={{ duration: 0.2 }}
                   className="space-y-4"
                 >
-                  {/* Informative Notice Box */}
-                  <div className="p-3.5 rounded-xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/15 text-xs flex items-start gap-3" style={{ color: 'var(--color-text-secondary)' }}>
-                    <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-primary)' }} />
-                    <div className="space-y-1">
-                      <p className="font-semibold" style={{ color: 'var(--color-text)' }}>
-                        Visor en vivo de la documentación compartida en Notion
-                      </p>
-                      <p className="leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                        Si la vista previa no carga directamente dentro del iFrame debido a permisos de seguridad de Notion, haz clic en el botón <span className="font-semibold" style={{ color: 'var(--color-text)' }}>"Abrir en Notion"</span> superior para ver el documento completo en una nueva pestaña.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Iframe Container */}
-                  <div className="relative rounded-xl border border-[var(--color-border)] overflow-hidden shadow-inner min-h-[500px]" style={{ backgroundColor: 'var(--color-card)' }}>
-                    {!iframeLoaded && (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10" style={{ backgroundColor: 'var(--color-card)' }}>
-                        <RefreshCw className="w-8 h-8 animate-spin" style={{ color: 'var(--color-primary)' }} />
-                        <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Cargando documento de Notion...</p>
-                        <p className="text-xs max-w-md" style={{ color: 'var(--color-text-secondary)' }}>
-                          Conectando con {project.notionUrl}
-                        </p>
+                  {isNotionUrl ? (
+                    <>
+                      {/* Notion Embed Attempt */}
+                      <div className="p-3.5 rounded-xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/15 text-xs flex items-start gap-3" style={{ color: 'var(--color-text-secondary)' }}>
+                        <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-primary)' }} />
+                        <div className="space-y-1">
+                          <p className="font-semibold" style={{ color: 'var(--color-text)' }}>
+                            Documentación del proyecto
+                          </p>
+                          <p className="leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                            La documentación completa del proyecto está disponible en GitHub con instrucciones de instalación, arquitectura y más.
+                          </p>
+                        </div>
                       </div>
-                    )}
 
-                    <iframe
-                      src={notionEmbedUrl}
-                      title={`Documentación en Notion: ${project.title}`}
-                      className="w-full h-[550px] sm:h-[620px] border-0"
-                      onLoad={() => setIframeLoaded(true)}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  </div>
+                      <div className="relative rounded-xl border border-[var(--color-border)] overflow-hidden shadow-inner min-h-[500px]" style={{ backgroundColor: 'var(--color-card)' }}>
+                        {!iframeLoaded && (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10" style={{ backgroundColor: 'var(--color-card)' }}>
+                            <RefreshCw className="w-8 h-8 animate-spin" style={{ color: 'var(--color-primary)' }} />
+                            <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Cargando documentación...</p>
+                          </div>
+                        )}
+                        <iframe
+                          src={notionEmbedUrl}
+                          title={`Documentación: ${project.title}`}
+                          className="w-full h-[550px] sm:h-[620px] border-0"
+                          onLoad={() => setIframeLoaded(true)}
+                          onError={() => setIframeLoaded(true)}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
 
-                  {/* Fallback Direct Button */}
-                  <div className="flex items-center justify-between p-3.5 rounded-xl text-xs shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
-                    <span style={{ color: 'var(--color-text-secondary)' }}>¿Deseas editar o duplicar este proyecto en tu propia cuenta de Notion?</span>
-                    <a
-                      href={project.notionUrl || project.githubUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3.5 py-1.5 rounded-lg text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
-                      style={{ backgroundColor: 'var(--color-primary)' }}
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      {project.notionUrl ? 'Ver Página Oficial en Notion' : 'Ver en GitHub'}
-                    </a>
-                  </div>
+                      <div className="flex items-center justify-between p-3.5 rounded-xl text-xs shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
+                        <span style={{ color: 'var(--color-text-secondary)' }}>¿No se carga la vista previa?</span>
+                        <a
+                          href={project.notionUrl || project.githubUrl || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3.5 py-1.5 rounded-lg text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
+                          style={{ backgroundColor: 'var(--color-primary)' }}
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Abrir en Notion
+                        </a>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* GitHub README Fallback */}
+                      <div className="p-3.5 rounded-xl bg-[var(--color-success)]/5 border border-[var(--color-success)]/15 text-xs flex items-start gap-3" style={{ color: 'var(--color-text-secondary)' }}>
+                        <Info className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-success)' }} />
+                        <div className="space-y-1">
+                          <p className="font-semibold" style={{ color: 'var(--color-text)' }}>
+                            Documentación completa en GitHub
+                          </p>
+                          <p className="leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+                            Este proyecto incluye documentación detallada en su repositorio: arquitectura, guía de instalación, endpoints de API y más.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="relative rounded-xl border border-[var(--color-border)] overflow-hidden shadow-inner min-h-[500px]" style={{ backgroundColor: 'var(--color-card)' }}>
+                        {!iframeLoaded && (
+                          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10" style={{ backgroundColor: 'var(--color-card)' }}>
+                            <RefreshCw className="w-8 h-8 animate-spin" style={{ color: 'var(--color-primary)' }} />
+                            <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Cargando README de GitHub...</p>
+                          </div>
+                        )}
+                        <iframe
+                          src={`https://github.com/${project.githubUrl?.split('github.com/')[1] || ''}`}
+                          title={`Documentación: ${project.title}`}
+                          className="w-full h-[550px] sm:h-[620px] border-0"
+                          onLoad={() => setIframeLoaded(true)}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between p-3.5 rounded-xl text-xs shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
+                        <span style={{ color: 'var(--color-text-secondary)' }}>Ver documentación completa del proyecto</span>
+                        <a
+                          href={project.githubUrl || '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3.5 py-1.5 rounded-lg text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
+                          style={{ backgroundColor: 'var(--color-primary)' }}
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          Ver en GitHub
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </motion.div>
               )}
 
