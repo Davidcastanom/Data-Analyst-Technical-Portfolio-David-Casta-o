@@ -111,10 +111,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Key Data Skills Badges */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-2 pt-1">
               {[
-                { icon: <Database className="w-3.5 h-3.5 text-[var(--color-primary)]" />, text: 'SQL & PostgreSQL' },
-                { icon: <BarChart3 className="w-3.5 h-3.5 text-[var(--color-accent)]" />, text: 'Power BI & DAX' },
-                { icon: <Code2 className="w-3.5 h-3.5 text-[var(--color-text)]" />, text: 'Python (Pandas)' },
-                { icon: <BookOpen className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />, text: 'Notion Docs' },
+                { icon: <Database className="w-3.5 h-3.5 text-[var(--color-primary)]" />, text: 'Python & Excel Avanzado' },
+                { icon: <BarChart3 className="w-3.5 h-3.5 text-[var(--color-accent)]" />, text: 'SAP HANA & Control de Inventarios' },
+                { icon: <Code2 className="w-3.5 h-3.5 text-[var(--color-text)]" />, text: 'HTML / CSS / JavaScript' },
+                { icon: <BookOpen className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />, text: 'IA Generativa & Automatización' },
               ].map((badge, i) => (
                 <motion.span 
                   key={i}
@@ -154,9 +154,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Metrics Quick Highlights */}
             <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 pt-6 border-t border-[var(--color-border)] max-w-xl">
               {[
-                { value: `+${user.yearsOfExperience} Años`, label: 'Experiencia Analytics', color: 'var(--color-text)' },
-                { value: `+${user.projectsCompleted}`, label: 'Proyectos Finalizados', color: 'var(--color-primary)' },
-                { value: '$145K+', label: 'Ahorro & ROI Generado', color: 'var(--color-success)' },
+                { value: `+${user.yearsOfExperience} Años`, label: 'Experiencia Operativa', color: 'var(--color-text)' },
+                { value: `${user.projectsCompleted}`, label: 'Proyectos Técnicos', color: 'var(--color-primary)' },
+                { value: 'EnCurso', label: 'Análisis de Datos Junior', color: 'var(--color-success)' },
               ].map((metric, i) => (
                 <motion.div 
                   key={i}

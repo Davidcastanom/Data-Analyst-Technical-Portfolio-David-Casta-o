@@ -7,7 +7,7 @@ export interface Project {
   businessImpact: string; // e.g., "Reducción de churn en un 18.5%"
   keyMetrics: { label: string; value: string }[];
   tags: string[]; // e.g., ["Python", "SQL", "Power BI", "Notion"]
-  notionUrl: string; // Public Notion shared link or embed link
+  notionUrl?: string; // Public Notion shared link or embed link
   githubUrl?: string;
   demoUrl?: string;
   featured: boolean;
