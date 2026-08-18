@@ -325,6 +325,13 @@ export const initialPortfolioConfig: PortfolioConfig = {
 
   certifications: [
     {
+      id: 'cert-0',
+      title: 'Técnico Laboral por Competencias — Asistente Administrativo',
+      issuer: 'CESDE — Medellín',
+      date: 'Feb 2024',
+      skills: ['Gestión Administrativa', 'Control Documental', 'Facturación', 'Atención al Cliente'],
+    },
+    {
       id: 'cert-1',
       title: 'Curso ImpActo Maker — IA Generativa aplicada a proyectos de impacto',
       issuer: 'Estrategia País, AtlanttiCO y ASCOFADE (con apoyo de Google.org)',
