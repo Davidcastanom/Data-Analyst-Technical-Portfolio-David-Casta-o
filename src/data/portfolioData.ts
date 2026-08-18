@@ -180,6 +180,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
       ],
       tags: ['HTML', 'Diseño de Producto'],
       githubUrl: 'https://github.com/Davidcastanom/multiplica',
+      demoUrl: 'https://davidcastanom.github.io/multiplica/index.html',
       featured: false,
       imageBgGradient: 'from-green-600 via-emerald-600 to-teal-700',
       highlights: [
