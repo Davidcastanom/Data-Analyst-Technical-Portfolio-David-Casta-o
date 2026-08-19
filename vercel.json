@@ -1,16 +1,15 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/google528c1e205ec6112b.html",
-      "destination": "/google528c1e205ec6112b.html"
-    }
-  ],
-  "headers": [
+      "src": "/google528c1e205ec6112b.html",
+      "dest": "/google528c1e205ec6112b.html"
+    },
     {
-      "source": "/google528c1e205ec6112b.html",
-      "headers": [
-        { "key": "Content-Type", "value": "text/html" }
-      ]
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
