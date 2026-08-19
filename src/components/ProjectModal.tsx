@@ -233,9 +233,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {project.keyMetrics.map((metric, idx) => (
-                  <div key={idx} className="p-3 rounded-xl border border-[var(--color-border)] text-center shadow-sm" style={{ backgroundColor: 'var(--color-card)' }}>
-                    <span className="text-xs block mb-1 font-medium" style={{ color: 'var(--color-text-secondary)' }}>{metric.label}</span>
-                    <span className="text-lg font-extrabold font-mono" style={{ color: 'var(--color-accent)' }}>{metric.value}</span>
+                  <div key={idx} className="p-3 rounded-xl border border-[var(--color-border)] text-center shadow-sm overflow-hidden" style={{ backgroundColor: 'var(--color-card)' }}>
+                    <span className="text-[10px] sm:text-xs block mb-1 font-medium truncate" style={{ color: 'var(--color-text-secondary)' }}>{metric.label}</span>
+                    <span className="text-sm sm:text-lg font-extrabold font-mono truncate block" style={{ color: 'var(--color-accent)' }}>{metric.value}</span>
                   </div>
                 ))}
               </div>

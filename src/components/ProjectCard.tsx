@@ -82,9 +82,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
         {/* Key Metrics Grid */}
         <div className="grid grid-cols-2 gap-2 pt-1">
           {project.keyMetrics.slice(0, 2).map((metric, idx) => (
-            <div key={idx} className="p-2.5 rounded-lg glass-card border border-[var(--color-border)] text-left">
+            <div key={idx} className="p-2.5 rounded-lg glass-card border border-[var(--color-border)] text-left overflow-hidden">
               <span className="text-[10px] text-[var(--color-text-secondary)] block truncate">{metric.label}</span>
-              <span className="text-xs font-bold text-[var(--color-primary)] font-mono">{metric.value}</span>
+              <span className="text-[11px] sm:text-xs font-bold text-[var(--color-primary)] font-mono truncate block">{metric.value}</span>
             </div>
           ))}
         </div>
