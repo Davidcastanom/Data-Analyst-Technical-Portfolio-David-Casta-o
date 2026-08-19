@@ -228,7 +228,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMobileMenuOpen(false);
+                      setTimeout(() => {
+                        document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
                     className="px-3 py-2 rounded-lg text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-[var(--color-card-hover)] transition-colors"
                   >
                     {link.name}
