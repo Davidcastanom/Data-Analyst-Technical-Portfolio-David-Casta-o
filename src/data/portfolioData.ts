@@ -86,6 +86,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
       ],
       tags: ['Rust', 'Tauri v2', 'React 19', 'DuckDB', 'Polars', 'TanStack Table'],
       githubUrl: 'https://github.com/Davidcastanom/datalens',
+      videoUrl: 'https://res.cloudinary.com/unhl90nr/video/upload/v1787103736/DataLens__Claridad_de_Datos_na7mqm.mp4',
       featured: true,
       imageBgGradient: 'from-amber-600 via-orange-600 to-red-600',
       highlights: [

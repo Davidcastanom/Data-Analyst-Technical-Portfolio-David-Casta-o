@@ -11,7 +11,11 @@ import {
   MapPin, 
   MessageSquare, 
   Sparkles,
-  Phone
+  Phone,
+  Zap,
+  Clock,
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 
 interface ContactSectionProps {
@@ -34,11 +38,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
     if (!formData.name || !formData.email || !formData.message) return;
 
     setStatus('submitting');
+
+    // Build mailto with pre-filled subject and body
+    const subject = encodeURIComponent(`Consulta de ${formData.name}${formData.company ? ` — ${formData.company}` : ''}`);
+    const body = encodeURIComponent(
+      `Hola David,\n\n${formData.message}\n\n---\nNombre: ${formData.name}\nCorreo: ${formData.email}${formData.company ? `\nEmpresa: ${formData.company}` : ''}\n\nEnviado desde tu portafolio profesional.`
+    );
+    const mailtoUrl = `mailto:${user.email}?subject=${subject}&body=${body}`;
+
     setTimeout(() => {
+      window.location.href = mailtoUrl;
       setStatus('success');
       setFormData({ name: '', email: '', company: '', message: '' });
       setTimeout(() => setStatus('idle'), 4000);
-    }, 1000);
+    }, 600);
   };
 
   const handleCopyEmail = () => {
@@ -47,129 +60,172 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
     setTimeout(() => setIsEmailCopied(false), 2000);
   };
 
+  const handleWhatsApp = () => {
+    const phone = user.phone?.replace(/[^0-9]/g, '') || '';
+    const msg = encodeURIComponent(`Hola David, me comunico desde tu portafolio profesional. Me gustaría conversar sobre una oportunidad.`);
+    window.open(`https://wa.me/57${phone}?text=${msg}`, '_blank');
+  };
+
   return (
     <motion.section
       id="contacto"
-      className="py-20 bg-[var(--color-bg)] relative border-t border-[var(--color-border)] transition-colors duration-300"
+      className="py-20 relative border-t border-[var(--color-border)] transition-colors duration-300"
+      style={{ backgroundColor: 'var(--color-bg)' }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
+
+        {/* ── Hero CTA Banner ── */}
         <motion.div
-          className="text-center max-w-3xl mx-auto space-y-3 mb-16"
+          className="relative rounded-2xl overflow-hidden mb-16 p-8 sm:p-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-card)] text-[var(--color-text)] border border-[var(--color-border)] shadow-sm">
-            <MessageSquare className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-            <span>Contacto Directo & Colaboración</span>
+          {/* Gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-secondary)] to-purple-600 opacity-90" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMS41IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDgpIi8+PC9zdmc+')] opacity-40" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div className="space-y-3 text-center lg:text-left">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white/15 text-white/90 border border-white/20">
+                <Zap className="w-3 h-3" />
+                <span>Disponible Ahora</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                ¿Listo para convertir tus datos<br className="hidden sm:block" /> en decisiones estratégicas?
+              </h2>
+              <p className="text-sm text-white/80 max-w-lg">
+                Cada proyecto comienza con una conversación. Cuéntame tu desafío y diseño la solución analítica que tu negocio necesita.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <motion.button
+                onClick={handleWhatsApp}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-[var(--color-primary)] text-xs font-bold shadow-lg hover:shadow-xl transition-all"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Escribir por WhatsApp</span>
+              </motion.button>
+
+              <motion.a
+                href={`mailto:${user.email}`}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/15 text-white text-xs font-bold border border-white/25 hover:bg-white/25 transition-all"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <Mail className="w-4 h-4" />
+                <span>Enviar Correo</span>
+              </motion.a>
+            </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[var(--color-text)] tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            ¿Tienes un Proyecto o Vacante de Datos?
-          </h2>
-          <p className="text-base text-[var(--color-text-secondary)]">
-            Estoy disponible para roles de tiempo completo, consultorías en BI y proyectos de analytics freelance. Escríbeme y hablemos de cómo optimizar tus datos.
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: Direct Contact Details & Links */}
+          {/* Left Column: Quick Actions & Info */}
           <div className="lg:col-span-5 space-y-6">
-            
-            <div className="glass-card p-6 rounded-2xl space-y-6">
-              <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                <Sparkles className="w-5 h-5 text-[var(--color-primary)]" />
-                <span>Información de Contacto</span>
+
+            {/* Quick Action Cards */}
+            <div className="space-y-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                Acciones Rápidas
               </h3>
 
-              {/* Email Card with Copy Button */}
-              <div className="p-4 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] space-y-2">
-                <span className="text-xs text-[var(--color-text-secondary)] block font-medium">Correo Electrónico Directo</span>
-                <div className="flex items-center justify-between gap-2">
-                  <a 
-                    href={`mailto:${user.email}`} 
-                    className="text-sm font-semibold text-[var(--color-primary)] hover:underline truncate"
-                  >
-                    {user.email}
-                  </a>
-                  <motion.button
-                    onClick={handleCopyEmail}
-                    className="p-2 rounded-lg bg-[var(--color-card)] hover:bg-[var(--color-card-hover)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text)] transition-colors shrink-0 shadow-sm"
-                    title="Copiar correo"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {isEmailCopied ? <Check className="w-4 h-4 text-[var(--color-success)]" /> : <Copy className="w-4 h-4" />}
-                  </motion.button>
+              {/* WhatsApp Card */}
+              <motion.button
+                onClick={handleWhatsApp}
+                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-green-500/30 transition-all group"
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+              >
+                <div className="p-3 rounded-xl bg-green-500/10 border border-green-500/20 shrink-0">
+                  <MessageCircle className="w-5 h-5 text-green-600" />
                 </div>
-              </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-bold text-[var(--color-text)] block">WhatsApp Directo</span>
+                  <span className="text-[11px] text-[var(--color-text-secondary)]">Respuesta inmediata · {user.phone}</span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-green-600 group-hover:translate-x-1 transition-all shrink-0" />
+              </motion.button>
 
-              {/* Phone & Location */}
-              <div className="space-y-3 text-xs text-[var(--color-text)]">
-                {user.phone && (
-                  <motion.div
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)]"
-                    whileHover={{ scale: 1.01 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Phone className="w-4 h-4 text-[var(--color-success)] shrink-0" />
-                    <div>
-                      <span className="text-[var(--color-text-secondary)] block text-[10px]">Teléfono / WhatsApp</span>
-                      <span className="font-semibold text-[var(--color-text)]">{user.phone}</span>
-                    </div>
-                  </motion.div>
+              {/* Email Card */}
+              <motion.button
+                onClick={handleCopyEmail}
+                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-[var(--color-primary)]/30 transition-all group"
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+              >
+                <div className="p-3 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 shrink-0">
+                  <Mail className="w-5 h-5 text-[var(--color-primary)]" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-bold text-[var(--color-text)] block">Correo Electrónico</span>
+                  <span className="text-[11px] text-[var(--color-text-secondary)] truncate block">{user.email}</span>
+                </div>
+                {isEmailCopied ? (
+                  <Check className="w-4 h-4 text-[var(--color-success)] shrink-0" />
+                ) : (
+                  <Copy className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-[var(--color-primary)] transition-all shrink-0" />
                 )}
+              </motion.button>
 
-                <motion.div
-                  className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)]"
-                  whileHover={{ scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <MapPin className="w-4 h-4 text-[var(--color-primary)] shrink-0" />
-                  <div>
-                    <span className="text-[var(--color-text-secondary)] block text-[10px]">Ubicación & Modalidad</span>
-                    <span className="font-semibold text-[var(--color-text)]">{user.location}</span>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Social Buttons */}
-              <div className="pt-2 border-t border-[var(--color-border)] space-y-2">
-                <span className="text-xs text-[var(--color-text-secondary)] font-medium block">Redes Profesionales:</span>
-                <div className="flex gap-2">
-                  <motion.a
-                    href={user.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-2.5 px-3 rounded-xl glass-card text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] flex items-center justify-center gap-2 transition-colors"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <Linkedin className="w-4 h-4 text-[var(--color-primary)]" />
-                    <span>LinkedIn</span>
-                  </motion.a>
-
-                  <motion.a
-                    href={user.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 py-2.5 px-3 rounded-xl glass-card text-xs font-semibold text-[var(--color-text-secondary)] hover:text-[var(--color-text)] flex items-center justify-center gap-2 transition-colors"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <Github className="w-4 h-4 text-[var(--color-text)]" />
-                    <span>GitHub</span>
-                  </motion.a>
+              {/* LinkedIn Card */}
+              <motion.a
+                href={user.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-blue-500/30 transition-all group"
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+              >
+                <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 shrink-0">
+                  <Linkedin className="w-5 h-5 text-blue-600" />
                 </div>
-              </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-bold text-[var(--color-text)] block">LinkedIn</span>
+                  <span className="text-[11px] text-[var(--color-text-secondary)]">Conectemos profesionalmente</span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0" />
+              </motion.a>
 
+              {/* GitHub Card */}
+              <motion.a
+                href={user.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-slate-500/30 transition-all group"
+                whileHover={{ scale: 1.01, x: 4 }}
+                whileTap={{ scale: 0.99 }}
+              >
+                <div className="p-3 rounded-xl bg-slate-500/10 border border-slate-500/20 shrink-0">
+                  <Github className="w-5 h-5 text-[var(--color-text)]" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-bold text-[var(--color-text)] block">GitHub</span>
+                  <span className="text-[11px] text-[var(--color-text-secondary)]">Repositorios y código fuente</span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text)] group-hover:translate-x-1 transition-all shrink-0" />
+              </motion.a>
+            </div>
+
+            {/* Availability Badge */}
+            <div className="p-4 rounded-xl bg-[var(--color-success)]/5 border border-[var(--color-success)]/15 flex items-center gap-3">
+              <div className="relative shrink-0">
+                <div className="w-3 h-3 rounded-full bg-[var(--color-success)] animate-pulse" />
+                <div className="absolute inset-0 w-3 h-3 rounded-full bg-[var(--color-success)] animate-ping opacity-50" />
+              </div>
+              <div>
+                <span className="text-xs font-bold text-[var(--color-success)] block">Disponible para nuevas oportunidades</span>
+                <span className="text-[10px] text-[var(--color-text-secondary)]">{user.location} · Tiempo completo o freelance</span>
+              </div>
             </div>
 
           </div>
@@ -180,9 +236,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               onSubmit={handleSubmit}
               className="glass-card p-6 sm:p-8 rounded-2xl space-y-5"
             >
-              <h3 className="text-lg font-bold text-[var(--color-text)] mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                Enviar un Mensaje Directo
-              </h3>
+              <div className="space-y-1 mb-2">
+                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <Send className="w-5 h-5 text-[var(--color-primary)]" />
+                  <span>Envíame un Mensaje</span>
+                </h3>
+                <p className="text-[11px] text-[var(--color-text-secondary)]">
+                  Completa el formulario y se abrirá tu cliente de correo con el mensaje prellenado.
+                </p>
+              </div>
 
               {status === 'success' && (
                 <motion.div
@@ -192,7 +254,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
                   transition={{ duration: 0.3 }}
                 >
                   <Check className="w-4 h-4 shrink-0" />
-                  <span>¡Mensaje enviado con éxito! Me pondré en contacto contigo a la brevedad.</span>
+                  <span>¡Cliente de correo abierto! Revisa tu aplicación de email para enviar el mensaje.</span>
                 </motion.div>
               )}
 
@@ -280,19 +342,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <motion.button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full py-3 px-6 rounded-xl text-xs font-bold text-white bg-[var(--color-primary)] transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full py-3 px-6 rounded-xl text-xs font-bold text-white bg-[var(--color-primary)] transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:brightness-110"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {status === 'submitting' ? (
-                  <span>Enviando mensaje...</span>
+                  <span>Abriendo correo...</span>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Enviar Mensaje</span>
+                    <span>Enviar Mensaje por Correo</span>
                   </>
                 )}
               </motion.button>
+
+              <p className="text-center text-[10px] text-[var(--color-text-secondary)]">
+                Se abrirá tu cliente de correo con el mensaje prellenado a <strong>{user.email}</strong>
+              </p>
 
             </form>
           </div>
