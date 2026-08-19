@@ -8,16 +8,14 @@ import {
   BookOpen, 
   Globe, 
   ArrowUp, 
-  Heart,
-  Rocket
+  Heart
 } from 'lucide-react';
 
 interface FooterProps {
   user: UserProfile;
-  onOpenVercelGuide: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ user, onOpenVercelGuide }) => {
+export const Footer: React.FC<FooterProps> = ({ user }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -53,9 +51,9 @@ export const Footer: React.FC<FooterProps> = ({ user, onOpenVercelGuide }) => {
             </ul>
           </div>
 
-          {/* Col 3: Social & Vercel Deploy (4 Cols) */}
+          {/* Col 3: Social & Links (4 Cols) */}
           <div className="md:col-span-4 space-y-3">
-            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Redes & Despliegue</span>
+            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Redes</span>
             <div className="flex items-center gap-3">
               <motion.a
                 href={user.githubUrl}
@@ -95,23 +93,13 @@ export const Footer: React.FC<FooterProps> = ({ user, onOpenVercelGuide }) => {
                 </motion.a>
               )}
             </div>
-
-            <motion.button
-              onClick={onOpenVercelGuide}
-              className="w-full mt-2 py-2 px-3 rounded-xl bg-[var(--color-primary)] hover:opacity-90 border border-[var(--color-primary)] text-xs font-semibold text-white flex items-center justify-center gap-2 transition-colors shadow-sm"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Rocket className="w-3.5 h-3.5" />
-              <span>Desplegar este Portafolio en Vercel</span>
-            </motion.button>
           </div>
 
         </div>
 
         {/* Bottom copyright & scroll to top */}
         <div className="pt-8 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[var(--color-text-secondary)] text-[11px]">
-          <p>© {new Date().getFullYear()} {user.name}. Portafolio de Analista de Datos optimizado para React + Vite + Vercel.</p>
+          <p>© {new Date().getFullYear()} {user.name}. Portafolio de Analista de Datos.</p>
 
           <motion.button
             onClick={scrollToTop}

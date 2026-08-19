@@ -10,13 +10,11 @@ import { ExperienceSection } from './components/ExperienceSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CVConfiguratorModal } from './components/CVConfiguratorModal';
-import { VercelGuideModal } from './components/VercelGuideModal';
 
 export default function App() {
   const [portfolioConfig, setPortfolioConfig] = useState<PortfolioConfig>(initialPortfolioConfig);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isConfiguratorOpen, setIsConfiguratorOpen] = useState(false);
-  const [isVercelGuideOpen, setIsVercelGuideOpen] = useState(false);
 
   // Dark Mode state with localStorage persistence
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -53,7 +51,6 @@ export default function App() {
         isDarkMode={isDarkMode}
         onToggleDarkMode={toggleDarkMode}
         onOpenConfigurator={() => setIsConfiguratorOpen(true)}
-        onOpenVercelGuide={() => setIsVercelGuideOpen(true)}
       />
 
       {/* Main Content Sections */}
@@ -91,7 +88,6 @@ export default function App() {
       {/* Footer */}
       <Footer 
         user={portfolioConfig.user}
-        onOpenVercelGuide={() => setIsVercelGuideOpen(true)}
       />
 
       {/* Notion Iframe Modal Component */}
@@ -106,12 +102,6 @@ export default function App() {
         onClose={() => setIsConfiguratorOpen(false)}
         config={portfolioConfig}
         onSaveConfig={(newConfig) => setPortfolioConfig(newConfig)}
-      />
-
-      {/* Vercel Deployment Instructions Modal */}
-      <VercelGuideModal 
-        isOpen={isVercelGuideOpen}
-        onClose={() => setIsVercelGuideOpen(false)}
       />
 
     </div>

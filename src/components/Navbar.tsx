@@ -5,7 +5,6 @@ import {
   BarChart2, 
   Github, 
   Linkedin, 
-  Rocket, 
   Menu, 
   X,
   Sun,
@@ -17,15 +16,13 @@ interface NavbarProps {
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
   onOpenConfigurator: () => void;
-  onOpenVercelGuide: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   user, 
   isDarkMode = false,
   onToggleDarkMode,
-  onOpenConfigurator, 
-  onOpenVercelGuide 
+  onOpenConfigurator
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -166,16 +163,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Linkedin className="w-4 h-4" />
           </motion.a>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onOpenVercelGuide}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 rounded-xl transition-all shadow-md hover:shadow-lg"
-          >
-            <Rocket className="w-3.5 h-3.5" />
-            <span style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Guía Despliegue</span>
-          </motion.button>
         </div>
 
         {/* Mobile menu hamburger button & Theme Toggle */}
@@ -243,17 +230,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     )}
                   </button>
                 )}
-
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onOpenVercelGuide();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-[var(--color-primary)] rounded-xl shadow-md"
-                >
-                  <Rocket className="w-4 h-4" />
-                  <span>Guía Despliegue & Edición</span>
-                </button>
 
                 <div className="flex items-center justify-center gap-4 pt-2 text-[var(--color-text-secondary)]">
                   <a href={user.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)] flex items-center gap-1 text-xs">
