@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/google528c1e205ec6112b.html",
+      "destination": "/google528c1e205ec6112b.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/google528c1e205ec6112b.html",
+      "headers": [
+        { "key": "Content-Type", "value": "text/html" }
+      ]
+    }
+  ]
+}
