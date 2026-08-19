@@ -23,36 +23,7 @@ interface ContactSectionProps {
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: ''
-  });
-
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [isEmailCopied, setIsEmailCopied] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setStatus('submitting');
-
-    // Build mailto with pre-filled subject and body
-    const subject = encodeURIComponent(`Consulta de ${formData.name}${formData.company ? ` — ${formData.company}` : ''}`);
-    const body = encodeURIComponent(
-      `Hola David,\n\n${formData.message}\n\n---\nNombre: ${formData.name}\nCorreo: ${formData.email}${formData.company ? `\nEmpresa: ${formData.company}` : ''}\n\nEnviado desde tu portafolio profesional.`
-    );
-    const mailtoUrl = `mailto:${user.email}?subject=${subject}&body=${body}`;
-
-    setTimeout(() => {
-      window.location.href = mailtoUrl;
-      setStatus('success');
-      setFormData({ name: '', email: '', company: '', message: '' });
-      setTimeout(() => setStatus('idle'), 4000);
-    }, 600);
-  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(user.email);
@@ -63,7 +34,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
   const handleWhatsApp = () => {
     const phone = user.phone?.replace(/[^0-9]/g, '') || '';
     const msg = encodeURIComponent(`Hola David, me comunico desde tu portafolio profesional. Me gustaría conversar sobre una oportunidad.`);
-    window.open(`https://wa.me/57${phone}?text=${msg}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
   };
 
   return (
@@ -128,241 +99,110 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Left Column: Quick Actions & Info */}
-          <div className="lg:col-span-5 space-y-6">
+        {/* ── Action Cards Grid ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
 
-            {/* Quick Action Cards */}
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--color-text-secondary)]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                Acciones Rápidas
-              </h3>
-
-              {/* WhatsApp Card */}
-              <motion.button
-                onClick={handleWhatsApp}
-                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-green-500/30 transition-all group"
-                whileHover={{ scale: 1.01, x: 4 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="p-3 rounded-xl bg-green-500/10 border border-green-500/20 shrink-0">
-                  <MessageCircle className="w-5 h-5 text-green-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-bold text-[var(--color-text)] block">WhatsApp Directo</span>
-                  <span className="text-[11px] text-[var(--color-text-secondary)]">Respuesta inmediata · {user.phone}</span>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-green-600 group-hover:translate-x-1 transition-all shrink-0" />
-              </motion.button>
-
-              {/* Email Card */}
-              <motion.button
-                onClick={handleCopyEmail}
-                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-[var(--color-primary)]/30 transition-all group"
-                whileHover={{ scale: 1.01, x: 4 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="p-3 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 shrink-0">
-                  <Mail className="w-5 h-5 text-[var(--color-primary)]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-bold text-[var(--color-text)] block">Correo Electrónico</span>
-                  <span className="text-[11px] text-[var(--color-text-secondary)] truncate block">{user.email}</span>
-                </div>
-                {isEmailCopied ? (
-                  <Check className="w-4 h-4 text-[var(--color-success)] shrink-0" />
-                ) : (
-                  <Copy className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-[var(--color-primary)] transition-all shrink-0" />
-                )}
-              </motion.button>
-
-              {/* LinkedIn Card */}
-              <motion.a
-                href={user.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-blue-500/30 transition-all group"
-                whileHover={{ scale: 1.01, x: 4 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 shrink-0">
-                  <Linkedin className="w-5 h-5 text-blue-600" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-bold text-[var(--color-text)] block">LinkedIn</span>
-                  <span className="text-[11px] text-[var(--color-text-secondary)]">Conectemos profesionalmente</span>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0" />
-              </motion.a>
-
-              {/* GitHub Card */}
-              <motion.a
-                href={user.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-4 text-left hover:border-slate-500/30 transition-all group"
-                whileHover={{ scale: 1.01, x: 4 }}
-                whileTap={{ scale: 0.99 }}
-              >
-                <div className="p-3 rounded-xl bg-slate-500/10 border border-slate-500/20 shrink-0">
-                  <Github className="w-5 h-5 text-[var(--color-text)]" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-bold text-[var(--color-text)] block">GitHub</span>
-                  <span className="text-[11px] text-[var(--color-text-secondary)]">Repositorios y código fuente</span>
-                </div>
-                <ArrowRight className="w-4 h-4 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text)] group-hover:translate-x-1 transition-all shrink-0" />
-              </motion.a>
+          {/* WhatsApp */}
+          <motion.button
+            onClick={handleWhatsApp}
+            className="p-5 rounded-xl glass-card border border-[var(--color-border)] flex flex-col items-center gap-3 text-center hover:border-green-500/30 transition-all group"
+            whileHover={{ scale: 1.03, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="p-3 rounded-xl bg-green-500/10 border border-green-500/20">
+              <MessageCircle className="w-6 h-6 text-green-600" />
             </div>
-
-            {/* Availability Badge */}
-            <div className="p-4 rounded-xl bg-[var(--color-success)]/5 border border-[var(--color-success)]/15 flex items-center gap-3">
-              <div className="relative shrink-0">
-                <div className="w-3 h-3 rounded-full bg-[var(--color-success)] animate-pulse" />
-                <div className="absolute inset-0 w-3 h-3 rounded-full bg-[var(--color-success)] animate-ping opacity-50" />
-              </div>
-              <div>
-                <span className="text-xs font-bold text-[var(--color-success)] block">Disponible para nuevas oportunidades</span>
-                <span className="text-[10px] text-[var(--color-text-secondary)]">{user.location} · Tiempo completo o freelance</span>
-              </div>
+            <div>
+              <span className="text-sm font-bold text-[var(--color-text)] block">WhatsApp</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{user.phone}</span>
             </div>
+          </motion.button>
 
+          {/* Email */}
+          <motion.button
+            onClick={handleCopyEmail}
+            className="p-5 rounded-xl glass-card border border-[var(--color-border)] flex flex-col items-center gap-3 text-center hover:border-[var(--color-primary)]/30 transition-all group"
+            whileHover={{ scale: 1.03, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="p-3 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20">
+              <Mail className="w-6 h-6 text-[var(--color-primary)]" />
+            </div>
+            <div>
+              <span className="text-sm font-bold text-[var(--color-text)] block">Correo</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{isEmailCopied ? '¡Copiado!' : 'Click para copiar'}</span>
+            </div>
+          </motion.button>
+
+          {/* LinkedIn */}
+          <motion.a
+            href={user.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-xl glass-card border border-[var(--color-border)] flex flex-col items-center gap-3 text-center hover:border-blue-500/30 transition-all group"
+            whileHover={{ scale: 1.03, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20">
+              <Linkedin className="w-6 h-6 text-blue-600" />
+            </div>
+            <div>
+              <span className="text-sm font-bold text-[var(--color-text)] block">LinkedIn</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">Conectemos</span>
+            </div>
+          </motion.a>
+
+          {/* GitHub */}
+          <motion.a
+            href={user.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-xl glass-card border border-[var(--color-border)] flex flex-col items-center gap-3 text-center hover:border-slate-500/30 transition-all group"
+            whileHover={{ scale: 1.03, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="p-3 rounded-xl bg-slate-500/10 border border-slate-500/20">
+              <Github className="w-6 h-6 text-[var(--color-text)]" />
+            </div>
+            <div>
+              <span className="text-sm font-bold text-[var(--color-text)] block">GitHub</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">Repositorios</span>
+            </div>
+          </motion.a>
+
+        </div>
+
+        {/* ── Bottom Info Row ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Location */}
+          <div className="p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-3">
+            <MapPin className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
+            <div>
+              <span className="text-xs font-bold text-[var(--color-text)] block">{user.location}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">Remoto o presencial</span>
+            </div>
           </div>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7">
-            <form 
-              onSubmit={handleSubmit}
-              className="glass-card p-6 sm:p-8 rounded-2xl space-y-5"
-            >
-              <div className="space-y-1 mb-2">
-                <h3 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  <Send className="w-5 h-5 text-[var(--color-primary)]" />
-                  <span>Envíame un Mensaje</span>
-                </h3>
-                <p className="text-[11px] text-[var(--color-text-secondary)]">
-                  Completa el formulario y se abrirá tu cliente de correo con el mensaje prellenado.
-                </p>
-              </div>
-
-              {status === 'success' && (
-                <motion.div
-                  className="p-4 rounded-xl bg-[var(--color-success)]/10 border border-[var(--color-success)]/20 text-[var(--color-success)] text-xs font-semibold flex items-center gap-2"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Check className="w-4 h-4 shrink-0" />
-                  <span>¡Cliente de correo abierto! Revisa tu aplicación de email para enviar el mensaje.</span>
-                </motion.div>
-              )}
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <motion.div
-                  className="space-y-1.5"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                >
-                  <label className="text-xs font-semibold text-[var(--color-text-secondary)] block">
-                    Tu Nombre <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Ej. Ana María"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] text-xs text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors"
-                  />
-                </motion.div>
-
-                <motion.div
-                  className="space-y-1.5"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                >
-                  <label className="text-xs font-semibold text-[var(--color-text-secondary)] block">
-                    Correo Electrónico <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="ejemplo@empresa.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] text-xs text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors"
-                  />
-                </motion.div>
-              </div>
-
-              <motion.div
-                className="space-y-1.5"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-              >
-                <label className="text-xs font-semibold text-[var(--color-text-secondary)] block">
-                  Empresa / Organización (Opcional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="Nombre de tu empresa o startup"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] text-xs text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors"
-                />
-              </motion.div>
-
-              <motion.div
-                className="space-y-1.5"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.4 }}
-              >
-                <label className="text-xs font-semibold text-[var(--color-text-secondary)] block">
-                  Mensaje o Detalles del Proyecto <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  required
-                  rows={4}
-                  placeholder="Cuéntame sobre tu proyecto, las fuentes de datos que manejas o la vacante que deseas cubrir..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[var(--color-muted)] border border-[var(--color-border)] text-xs text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors resize-none"
-                />
-              </motion.div>
-
-              <motion.button
-                type="submit"
-                disabled={status === 'submitting'}
-                className="w-full py-3 px-6 rounded-xl text-xs font-bold text-white bg-[var(--color-primary)] transition-all shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 hover:brightness-110"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {status === 'submitting' ? (
-                  <span>Abriendo correo...</span>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Enviar Mensaje por Correo</span>
-                  </>
-                )}
-              </motion.button>
-
-              <p className="text-center text-[10px] text-[var(--color-text-secondary)]">
-                Se abrirá tu cliente de correo con el mensaje prellenado a <strong>{user.email}</strong>
-              </p>
-
-            </form>
+          {/* Availability */}
+          <div className="p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-3">
+            <div className="relative shrink-0">
+              <div className="w-3 h-3 rounded-full bg-[var(--color-success)] animate-pulse" />
+              <div className="absolute inset-0 w-3 h-3 rounded-full bg-[var(--color-success)] animate-ping opacity-50" />
+            </div>
+            <div>
+              <span className="text-xs font-bold text-[var(--color-success)] block">Disponible</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">Tiempo completo & freelance</span>
+            </div>
           </div>
 
+          {/* Response time */}
+          <div className="p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-3">
+            <Clock className="w-5 h-5 text-[var(--color-accent)] shrink-0" />
+            <div>
+              <span className="text-xs font-bold text-[var(--color-text)] block">Respuesta rápida</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">Menos de 24 horas</span>
+            </div>
+          </div>
         </div>
 
       </div>
