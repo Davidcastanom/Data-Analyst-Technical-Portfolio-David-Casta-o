@@ -203,6 +203,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
       ],
       tags: ['JavaScript', 'HTML', 'Educación'],
       githubUrl: 'https://github.com/Davidcastanom/palabras-vivas-2.0',
+      demoUrl: 'https://davidcastanom.github.io/palabras-vivas-2.0/#/home',
       featured: false,
       imageBgGradient: 'from-yellow-500 via-orange-500 to-red-500',
       highlights: [
