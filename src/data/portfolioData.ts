@@ -8,7 +8,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
     bio: 'Más de 10 años construyendo una base operativa sólida en producción, logística y control de inventarios — experiencia que hoy se traduce directamente en pensamiento analítico, disciplina en el manejo de procesos y capacidad de ejecución bajo estándares de calidad. Actualmente en formación activa en Análisis de Datos y Tecnología en Gestión Administrativa.',
     aboutLong: 'Profesional en transición estratégica hacia el análisis de datos y la gestión administrativa, con más de 10 años de trayectoria en entornos operativos exigentes. Combina esta base con formación activa en Tecnología en Gestión Administrativa, el programa Análisis de Datos Junior de Ruta Tech (iniciativa Estud-IA de la Alcaldía de Medellín) y proyectos propios de desarrollo web, automatización e Inteligencia Artificial aplicada. El resultado es un perfil híbrido: la rigurosidad de quien ya sabe controlar procesos críticos, sumada al manejo de herramientas digitales y datos para tomar mejores decisiones.',
     email: 'esteban7005808@hotmail.com',
-    phone: '301-684-4238',
+    phone: '+57 301 684 4364',
     location: 'Medellín, Colombia',
     availability: 'Disponible para Proyectos & Tiempo Completo',
     yearsOfExperience: 10,
