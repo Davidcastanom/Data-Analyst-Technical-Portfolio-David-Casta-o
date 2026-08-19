@@ -151,10 +151,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <motion.div 
                   key={i}
                   whileHover={{ y: -2, scale: 1.02 }}
-                  className="glass-card p-3.5 rounded-xl shadow-sm"
+                  className="glass-card p-3.5 rounded-xl shadow-sm overflow-hidden"
                 >
-                  <div className="text-2xl font-bold font-mono" style={{ color: metric.color }}>{metric.value}</div>
-                  <div className="text-xs text-[var(--color-text-secondary)] font-medium">{metric.label}</div>
+                  <div className="text-lg sm:text-2xl font-bold font-mono truncate" style={{ color: metric.color }}>{metric.value}</div>
+                  <div className="text-[10px] sm:text-xs text-[var(--color-text-secondary)] font-medium truncate">{metric.label}</div>
                 </motion.div>
               ))}
             </motion.div>

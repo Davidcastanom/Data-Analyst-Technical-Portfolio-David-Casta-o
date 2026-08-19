@@ -33,7 +33,7 @@ export const translations = {
       yearsExperience: 'Años',
       operationalExperience: 'Experiencia Operativa',
       technicalProjects: 'Proyectos Técnicos',
-      inProgress: 'EnCurso',
+      inProgress: 'En Curso',
       dataAnalysisJunior: 'Análisis de Datos Junior',
       skills: {
         pythonExcel: 'Python & Excel Avanzado',
@@ -356,7 +356,7 @@ export const translations = {
       yearsExperience: 'Years',
       operationalExperience: 'Operational Experience',
       technicalProjects: 'Technical Projects',
-      inProgress: 'InProgress',
+      inProgress: 'In Progress',
       dataAnalysisJunior: 'Junior Data Analyst',
       skills: {
         pythonExcel: 'Python & Advanced Excel',
