@@ -18,6 +18,11 @@ import {
   Play
 } from 'lucide-react';
 
+const getYouTubeId = (url: string): string | null => {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/);
+  return match ? match[1] : null;
+};
+
 interface ProjectModalProps {
   project: Project | null;
   onClose: () => void;
@@ -187,16 +192,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   {t.projectModal.videoDemo}
                 </h4>
                 <div className="relative rounded-xl overflow-hidden border border-[var(--color-border)] shadow-lg bg-black">
-                  <video
-                    controls
-                    preload="metadata"
-                    playsInline
-                    className="w-full aspect-video object-contain"
-                    poster=""
-                  >
-                    <source src={project.videoUrl} type="video/mp4" />
-                    {t.projectModal.videoFallback}
-                  </video>
+                  {getYouTubeId(project.videoUrl) ? (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${getYouTubeId(project.videoUrl)}`}
+                      className="w-full aspect-video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={project.title}
+                    />
+                  ) : (
+                    <video
+                      controls
+                      preload="metadata"
+                      playsInline
+                      className="w-full aspect-video object-contain"
+                      poster=""
+                    >
+                      <source src={project.videoUrl} type="video/mp4" />
+                      {t.projectModal.videoFallback}
+                    </video>
+                  )}
                 </div>
               </div>
             )}
