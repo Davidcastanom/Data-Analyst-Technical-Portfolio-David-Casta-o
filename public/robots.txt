@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://data-analyst-technical-portfolio-david-casta-9n3n78omo.vercel.app/sitemap.xml
