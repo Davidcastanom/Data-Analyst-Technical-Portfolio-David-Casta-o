@@ -61,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'glass shadow-lg py-3' 
           : 'bg-white/60 dark:bg-slate-950/60 backdrop-blur-sm border-b border-[var(--color-border)] py-4'
@@ -205,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-[var(--color-text)] glass-card rounded-lg"
+            className="p-2 text-[var(--color-text)] glass-card rounded-lg relative z-50"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -220,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className="md:hidden glass border-t border-[var(--color-border)] overflow-hidden"
+            className="md:hidden glass border-t border-[var(--color-border)] overflow-hidden relative z-40"
           >
             <div className="px-4 py-4 space-y-3">
               <div className="flex flex-col space-y-1">
