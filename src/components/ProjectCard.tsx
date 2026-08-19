@@ -10,7 +10,8 @@ import {
   Sparkles,
   Layers,
   Database,
-  BarChart2
+  BarChart2,
+  Play
 } from 'lucide-react';
 
 interface ProjectCardProps {
@@ -38,6 +39,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
               {project.category}
             </span>
 
+            {project.videoUrl && (
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1">
+                <Play className="w-3 h-3 text-emerald-600 fill-current" /> Video
+              </span>
+            )}
             {project.featured && (
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-[var(--color-accent)]" /> Destacado

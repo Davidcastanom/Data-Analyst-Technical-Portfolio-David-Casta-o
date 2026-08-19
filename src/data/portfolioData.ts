@@ -226,6 +226,7 @@ export const initialPortfolioConfig: PortfolioConfig = {
       tags: ['JavaScript', 'Automatización', 'WhatsApp'],
       githubUrl: 'https://github.com/Davidcastanom/Huertana_facturas',
       demoUrl: 'https://davidcastanom.github.io/Huertana_facturas/',
+      videoUrl: 'https://res.cloudinary.com/unhl90nr/video/upload/v1787100004/Huertana__Gestor_Inteligente_lm6sar.mp4',
       featured: false,
       imageBgGradient: 'from-lime-500 via-green-500 to-emerald-600',
       highlights: [

@@ -13,7 +13,8 @@ import {
   CheckCircle2,
   TrendingUp,
   Database,
-  Github
+  Github,
+  Play
 } from 'lucide-react';
 
 interface ProjectModalProps {
@@ -175,6 +176,27 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {project.businessImpact}
               </p>
             </div>
+
+            {/* Video Demo */}
+            {project.videoUrl && (
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
+                  Video Demostración
+                </h4>
+                <div className="relative rounded-xl overflow-hidden border border-[var(--color-border)] shadow-lg bg-black">
+                  <video
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full aspect-video object-contain"
+                    poster=""
+                  >
+                    <source src={project.videoUrl} type="video/mp4" />
+                    Tu navegador no soporta la reproducción de videos.
+                  </video>
+                </div>
+              </div>
+            )}
 
             {/* Full Description */}
             <div className="space-y-2">

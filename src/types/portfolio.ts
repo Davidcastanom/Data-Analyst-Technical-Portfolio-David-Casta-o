@@ -10,6 +10,7 @@ export interface Project {
   notionUrl?: string; // Public Notion shared link or embed link
   githubUrl?: string;
   demoUrl?: string;
+  videoUrl?: string;
   featured: boolean;
   imageBgGradient?: string;
   highlights: string[];
