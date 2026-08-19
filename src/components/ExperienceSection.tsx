@@ -65,7 +65,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
             <div className="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5" style={{ '--tw-before-bg': 'var(--color-border)' } as React.CSSProperties}>
               <div className="absolute left-3.5 top-0 bottom-0 w-0.5" style={{ background: 'var(--color-border)' }} />
-              {experience.map((exp, index) => (
+              {experience.map((exp, index) => {
+                const te = t.experience.data[exp.id as keyof typeof t.experience.data];
+                return (
                 <motion.div
                   key={exp.id}
                   initial={{ opacity: 0, x: -30 }}
@@ -84,7 +86,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     <div className="flex flex-wrap items-start justify-between gap-2">
                       <div>
                         <h4 className="text-lg font-bold transition-colors group-hover:text-[var(--color-primary)]" style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)' }}>
-                          {exp.role}
+                          {te?.role || exp.role}
                         </h4>
                         <span className="text-sm font-semibold block" style={{ color: 'var(--color-primary)' }}>
                           {exp.company}
@@ -98,18 +100,18 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                         </span>
                         <span className="text-[11px] flex items-center justify-end gap-1" style={{ color: 'var(--color-text-secondary)' }}>
                           <MapPin className="w-3 h-3" />
-                          {exp.location}
+                          {te?.location || exp.location}
                         </span>
                       </div>
                     </div>
 
                     <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                      {exp.description}
+                      {te?.description || exp.description}
                     </p>
 
                     {/* Key Achievements Bullet points */}
                     <div className="space-y-1.5 pt-1">
-                      {exp.achievements.map((ach, idx) => (
+                      {(te?.achievements || exp.achievements).map((ach, idx) => (
                         <div key={idx} className="flex items-start gap-2 text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                           <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: 'var(--color-success)' }} />
                           <span>{ach}</span>
@@ -132,7 +134,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
 
           </div>
@@ -152,7 +155,9 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             </motion.h3>
 
             <div className="space-y-4">
-              {certifications.map((cert, index) => (
+              {certifications.map((cert, index) => {
+                const tc = t.experience.certifications[cert.id as keyof typeof t.experience.certifications];
+                return (
                 <motion.div
                   key={cert.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -168,17 +173,17 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       </div>
                       <div>
                         <h4 className="text-sm font-bold leading-snug" style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)' }}>
-                          {cert.title}
+                          {tc?.title || cert.title}
                         </h4>
                         <span className="text-xs font-medium block mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
-                          {cert.issuer} • <span className="font-mono font-semibold" style={{ color: 'var(--color-accent)' }}>{cert.date}</span>
+                          {tc?.issuer || cert.issuer} • <span className="font-mono font-semibold" style={{ color: 'var(--color-accent)' }}>{cert.date}</span>
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-1 pt-1">
-                    {cert.skills.map((skill) => (
+                    {(tc?.skills || cert.skills).map((skill) => (
                       <span
                         key={skill}
                         className="px-2 py-0.5 rounded text-[10px] font-mono border"
@@ -190,7 +195,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   </div>
 
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Continuous Learning Badge */}

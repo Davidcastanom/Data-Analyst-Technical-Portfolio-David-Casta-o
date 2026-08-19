@@ -27,6 +27,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   if (!project) return null;
 
   const { t } = useLanguage();
+  const tp = t.projects.data[project.id as keyof typeof t.projects.data];
   const [isCopied, setIsCopied] = React.useState(false);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
 
@@ -175,7 +176,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <span>{t.projectModal.mainBusinessResult}</span>
               </div>
               <p className="text-base font-semibold" style={{ color: 'var(--color-text)', fontFamily: "'Space Grotesk', sans-serif" }}>
-                {project.businessImpact}
+                {tp?.businessImpact || project.businessImpact}
               </p>
             </div>
 
@@ -206,7 +207,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {t.projectModal.fullDescription}
               </h4>
               <p className="leading-relaxed p-4 rounded-xl border border-[var(--color-border)] shadow-sm text-sm" style={{ backgroundColor: 'var(--color-card)', color: 'var(--color-text-secondary)' }}>
-                {project.fullDescription}
+                {tp?.fullDescription || project.fullDescription}
               </p>
             </div>
 
@@ -231,7 +232,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 {t.projectModal.highlights}
               </h4>
               <div className="space-y-2">
-                {project.highlights.map((highlight, idx) => (
+                {(tp?.highlights || project.highlights).map((highlight, idx) => (
                   <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl text-xs shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)', color: 'var(--color-text)' }}>
                     <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-primary)' }} />
                     <span>{highlight}</span>
@@ -255,11 +256,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             </div>
 
             {/* Dataset Info */}
-            {project.datasetInfo && (
+            {(tp?.datasetInfo || project.datasetInfo) && (
               <div className="p-3 rounded-xl text-xs flex items-center gap-2 shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
                 <Database className="w-4 h-4 shrink-0" style={{ color: 'var(--color-accent)' }} />
                 <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>{t.projectModal.dataset}</span>
-                <span className="font-semibold" style={{ color: 'var(--color-text)' }}>{project.datasetInfo}</span>
+                <span className="font-semibold" style={{ color: 'var(--color-text)' }}>{tp?.datasetInfo || project.datasetInfo}</span>
               </div>
             )}
           </div>

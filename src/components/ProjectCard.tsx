@@ -22,6 +22,7 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }) => {
   const { t } = useLanguage();
+  const tp = t.projects.data[project.id as keyof typeof t.projects.data];
   return (
     <motion.div
       className="group relative rounded-2xl glass-card border border-[var(--color-border)] transition-all duration-300 hover:shadow-md flex flex-col justify-between overflow-hidden"
@@ -63,7 +64,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
 
           {/* Short Summary */}
           <p className="text-sm text-[var(--color-text-secondary)] line-clamp-3 leading-relaxed">
-            {project.shortDescription}
+            {tp?.shortDescription || project.shortDescription}
           </p>
         </div>
 
@@ -74,7 +75,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
             <span>{t.projects.businessImpact}</span>
           </div>
           <p className="text-xs text-[var(--color-text)] font-medium leading-normal">
-            {project.businessImpact}
+            {tp?.businessImpact || project.businessImpact}
           </p>
         </div>
 

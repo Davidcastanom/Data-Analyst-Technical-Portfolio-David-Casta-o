@@ -75,7 +75,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-xs text-[var(--color-text-secondary)] shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[var(--color-success)] animate-ping"></span>
               <span className="w-2 h-2 rounded-full bg-[var(--color-success)] -ml-4"></span>
-              <span className="font-semibold text-[var(--color-success)]">{user.availability}</span>
+              <span className="font-semibold text-[var(--color-success)]">{t.user.availability}</span>
               <span className="text-[var(--color-border)]">|</span>
               <span className="flex items-center gap-1 text-[var(--color-text-secondary)] font-medium">
                 <MapPin className="w-3 h-3" />
@@ -89,13 +89,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {t.hero.greeting} <span className="text-[var(--color-primary)]">{user.name}</span>
               </h1>
               <p className="text-xl sm:text-2xl font-semibold text-[var(--color-text)] tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                {user.title} <span className="text-[var(--color-border)] font-normal">|</span> <span className="text-[var(--color-text-secondary)] font-medium">{user.specialty}</span>
+                {t.user.title} <span className="text-[var(--color-border)] font-normal">|</span> <span className="text-[var(--color-text-secondary)] font-medium">{t.user.specialty}</span>
               </p>
             </motion.div>
 
             {/* Hero Bio */}
             <motion.p variants={itemVariants} className="text-base sm:text-lg text-[var(--color-text-secondary)] leading-relaxed max-w-2xl font-normal">
-              {user.bio}
+              {t.user.bio}
             </motion.p>
 
             {/* Key Data Skills Badges */}
@@ -172,7 +172,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden glass-card shadow-2xl animate-float">
                 <img 
                   src="https://res.cloudinary.com/unhl90nr/image/upload/v1787090577/foto-perfil_xlp1xx.jpg" 
-                  alt="David Castaño — Analista de Datos Junior"
+                  alt={`David Castaño — ${t.user.title}`}
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -95,7 +95,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
             >
               {t.skills.allAreas}
             </button>
-            {skillCategories.map((cat) => (
+            {skillCategories.map((cat) => {
+              const tc = t.skills.categories[cat.title as keyof typeof t.skills.categories];
+              return (
               <button
                 key={cat.title}
                 onClick={() => setSelectedCategory(cat.title)}
@@ -105,9 +107,10 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
                     : 'glass-card text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border border-[var(--color-border)]'
                 }`}
               >
-                {cat.title.split('&')[0]}
+                {tc?.title || cat.title.split('&')[0]}
               </button>
-            ))}
+              );
+            })}
           </div>
 
           {/* Live Tool Search Bar */}
@@ -126,7 +129,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredCategories.map((category, index) => (
+          {filteredCategories.map((category, index) => {
+            const tc = t.skills.categories[category.title as keyof typeof t.skills.categories];
+            return (
             <motion.div
               key={category.title}
               className="p-6 rounded-2xl glass-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-300 space-y-4 shadow-sm"
@@ -145,17 +150,19 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
                     className="text-lg font-bold text-[var(--color-text)] tracking-tight"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
-                    {category.title}
+                    {tc?.title || category.title}
                   </h3>
                   <p className="text-xs text-[var(--color-text-secondary)]">
-                    {category.description}
+                    {tc?.description || category.description}
                   </p>
                 </div>
               </div>
 
               {/* Skills List Badges */}
               <div className="flex flex-wrap gap-2.5 pt-2">
-                {category.skills.map((skill) => (
+                {category.skills.map((skill) => {
+                  const skillName = tc?.skills?.[skill.name as keyof typeof tc.skills] || skill.name;
+                  return (
                   <motion.div
                     key={skill.name}
                     className="px-3 py-2 rounded-xl text-xs font-semibold glass-card text-[var(--color-text)] border border-[var(--color-border)] flex items-center justify-between gap-3 transition-all"
@@ -163,17 +170,19 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
                   >
                     <span className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-                      {skill.name}
+                      {skillName}
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-muted)] border border-[var(--color-border)] text-[var(--color-text-secondary)]">
                       {skill.level}
                     </span>
                   </motion.div>
-                ))}
+                  );
+                })}
               </div>
 
             </motion.div>
-          ))}
+            );
+          })}
         </div>
 
       </motion.div>
