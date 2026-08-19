@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { UserProfile } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   Mail, 
   Send, 
@@ -23,6 +24,7 @@ interface ContactSectionProps {
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
+  const { t } = useLanguage();
   const [isEmailCopied, setIsEmailCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -33,7 +35,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
 
   const handleWhatsApp = () => {
     const phone = user.phone?.replace(/[^0-9]/g, '') || '';
-    const msg = encodeURIComponent(`Hola David, me comunico desde tu portafolio profesional. Me gustaría conversar sobre una oportunidad.`);
+    const msg = encodeURIComponent(t.contact.whatsappMsg);
     window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
   };
 
@@ -65,13 +67,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
             <div className="space-y-3 text-center lg:text-left">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white/15 text-white/90 border border-white/20">
                 <Zap className="w-3 h-3" />
-                <span>Disponible Ahora</span>
+                <span>{t.contact.availableNow}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                ¿Listo para convertir tus datos<br className="hidden sm:block" /> en decisiones estratégicas?
+                {t.contact.ctaTitle}
               </h2>
               <p className="text-sm text-white/80 max-w-lg">
-                Cada proyecto comienza con una conversación. Cuéntame tu desafío y diseño la solución analítica que tu negocio necesita.
+                {t.contact.ctaDescription}
               </p>
             </div>
 
@@ -83,7 +85,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
                 whileTap={{ scale: 0.97 }}
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>Escribir por WhatsApp</span>
+                <span>{t.contact.writeWhatsApp}</span>
               </motion.button>
 
               <motion.a
@@ -93,7 +95,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
                 whileTap={{ scale: 0.97 }}
               >
                 <Mail className="w-4 h-4" />
-                <span>Enviar Correo</span>
+                <span>{t.contact.sendEmail}</span>
               </motion.a>
             </div>
           </div>
@@ -113,7 +115,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <MessageCircle className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <span className="text-sm font-bold text-[var(--color-text)] block">WhatsApp</span>
+              <span className="text-sm font-bold text-[var(--color-text)] block">{t.contact.whatsapp}</span>
               <span className="text-[10px] text-[var(--color-text-secondary)]">{user.phone}</span>
             </div>
           </motion.button>
@@ -129,8 +131,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <Mail className="w-6 h-6 text-[var(--color-primary)]" />
             </div>
             <div>
-              <span className="text-sm font-bold text-[var(--color-text)] block">Correo</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">{isEmailCopied ? '¡Copiado!' : 'Click para copiar'}</span>
+              <span className="text-sm font-bold text-[var(--color-text)] block">{t.contact.email}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{isEmailCopied ? t.contact.emailCopied : t.contact.emailCopyHint}</span>
             </div>
           </motion.button>
 
@@ -147,8 +149,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <Linkedin className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <span className="text-sm font-bold text-[var(--color-text)] block">LinkedIn</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">Conectemos</span>
+              <span className="text-sm font-bold text-[var(--color-text)] block">{t.contact.linkedin}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{t.contact.linkedinHint}</span>
             </div>
           </motion.a>
 
@@ -165,8 +167,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <Github className="w-6 h-6 text-[var(--color-text)]" />
             </div>
             <div>
-              <span className="text-sm font-bold text-[var(--color-text)] block">GitHub</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">Repositorios</span>
+              <span className="text-sm font-bold text-[var(--color-text)] block">{t.contact.github}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{t.contact.githubHint}</span>
             </div>
           </motion.a>
 
@@ -179,7 +181,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
             <MapPin className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
             <div>
               <span className="text-xs font-bold text-[var(--color-text)] block">{user.location}</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">Remoto o presencial</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{t.contact.remoteOrOnsite}</span>
             </div>
           </div>
 
@@ -190,8 +192,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
               <div className="absolute inset-0 w-3 h-3 rounded-full bg-[var(--color-success)] animate-ping opacity-50" />
             </div>
             <div>
-              <span className="text-xs font-bold text-[var(--color-success)] block">Disponible</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">Tiempo completo & freelance</span>
+              <span className="text-xs font-bold text-[var(--color-success)] block">{t.contact.available}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{t.contact.fullTimeFreelance}</span>
             </div>
           </div>
 
@@ -199,8 +201,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ user }) => {
           <div className="p-4 rounded-xl glass-card border border-[var(--color-border)] flex items-center gap-3">
             <Clock className="w-5 h-5 text-[var(--color-accent)] shrink-0" />
             <div>
-              <span className="text-xs font-bold text-[var(--color-text)] block">Respuesta rápida</span>
-              <span className="text-[10px] text-[var(--color-text-secondary)]">Menos de 24 horas</span>
+              <span className="text-xs font-bold text-[var(--color-text)] block">{t.contact.fastResponse}</span>
+              <span className="text-[10px] text-[var(--color-text-secondary)]">{t.contact.under24Hours}</span>
             </div>
           </div>
         </div>

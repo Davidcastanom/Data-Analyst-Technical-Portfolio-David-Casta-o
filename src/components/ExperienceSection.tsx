@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ExperienceItem, Certification } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   Briefcase, 
   Award, 
@@ -21,6 +22,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   experience, 
   certifications 
 }) => {
+  const { t } = useLanguage();
   return (
     <section id="experiencia" className="py-20 relative border-t border-[var(--color-border)] transition-colors duration-300" style={{ background: 'var(--color-bg)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,13 +37,13 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold glass-card" style={{ color: 'var(--color-text-secondary)' }}>
             <Briefcase className="w-3.5 h-3.5" style={{ color: 'var(--color-primary)' }} />
-            <span>Trayectoria Profesional & Logros</span>
+            <span>{t.experience.badge}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)' }}>
-            Experiencia Laboral & Certificaciones
+            {t.experience.title}
           </h2>
           <p className="text-base" style={{ color: 'var(--color-text-secondary)' }}>
-            Historial comprobado liderando iniciativas de Business Intelligence, diseño de data warehouses y desarrollo de soluciones analíticas de alto impacto.
+            {t.experience.description}
           </p>
         </motion.div>
 
@@ -58,7 +60,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             >
               <Briefcase className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
-              <span>Experiencia Relevante</span>
+              <span>{t.experience.relevantExperience}</span>
             </motion.h3>
 
             <div className="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5" style={{ '--tw-before-bg': 'var(--color-border)' } as React.CSSProperties}>
@@ -146,7 +148,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               style={{ fontFamily: "'Space Grotesk', sans-serif", color: 'var(--color-text)', borderColor: 'var(--color-border)' }}
             >
               <Award className="w-5 h-5" style={{ color: 'var(--color-accent)' }} />
-              <span>Certificaciones Oficiales</span>
+              <span>{t.experience.officialCertifications}</span>
             </motion.h3>
 
             <div className="space-y-4">
@@ -200,10 +202,10 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               className="p-5 rounded-2xl glass-card border border-[var(--color-border)] space-y-2"
             >
               <span className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--color-primary)' }}>
-                <Sparkles className="w-4 h-4" /> Formación Continua
+                <Sparkles className="w-4 h-4" /> {t.experience.continuousLearning}
               </span>
               <p className="text-xs leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                Constantemente actualizándome en nuevas técnicas de ingeniería de datos, arquitectura cloud en AWS/GCP y modelos de lenguaje aplicados al análisis exploratorio.
+                {t.experience.continuousLearningDesc}
               </p>
             </motion.div>
 

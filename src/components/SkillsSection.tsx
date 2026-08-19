@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { SkillCategory } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import {
   Database,
   BarChart3,
@@ -18,6 +19,7 @@ interface SkillsSectionProps {
 }
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories }) => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -65,16 +67,16 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold glass-card text-[var(--color-text)] border border-[var(--color-border)] shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-            <span>Stack Técnico & Herramientas de Análisis</span>
+            <span>{t.skills.badge}</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-extrabold text-[var(--color-text)] tracking-tight"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            Habilidades & Dominio de Herramientas
+            {t.skills.title}
           </h2>
           <p className="text-base text-[var(--color-text-secondary)]">
-            Especializado en el ecosistema completo de datos: desde la extracción y modelado dimensional en SQL, hasta la ciencia de datos en Python y la creación de tableros estratégicos en Power BI.
+            {t.skills.description}
           </p>
         </motion.div>
 
@@ -91,7 +93,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
                   : 'glass-card text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border border-[var(--color-border)]'
               }`}
             >
-              Todas las Áreas
+              {t.skills.allAreas}
             </button>
             {skillCategories.map((cat) => (
               <button
@@ -113,7 +115,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories })
             <Search className="w-4 h-4 text-[var(--color-text-secondary)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Buscar herramienta (ej. SQL, DAX)..."
+              placeholder={t.skills.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-1.5 rounded-xl glass-card border border-[var(--color-border)] text-xs text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-all"

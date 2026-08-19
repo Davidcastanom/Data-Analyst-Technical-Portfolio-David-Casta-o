@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types/portfolio';
 import { ProjectCard } from './ProjectCard';
+import { useLanguage } from '../i18n/LanguageContext';
 import {
   FolderKanban,
   Sparkles,
@@ -16,11 +17,17 @@ interface ProjectsSectionProps {
 }
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, onOpenModal }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const { t } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = ['Todos', 'Análisis Predictivo', 'Business Intelligence', 'Segmentación & Marketing'];
+  const categories = [
+    { id: 'all', label: t.projects.all },
+    { id: 'Análisis Predictivo', label: 'Análisis Predictivo' },
+    { id: 'Business Intelligence', label: 'Business Intelligence' },
+    { id: 'Segmentación & Marketing', label: 'Segmentación & Marketing' },
+  ];
 
-  const filteredProjects = selectedCategory === 'Todos'
+  const filteredProjects = selectedCategory === 'all'
     ? projects
     : projects.filter(p => p.category === selectedCategory);
 
@@ -46,16 +53,16 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, onOp
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold glass-card border border-[var(--color-border)] shadow-sm text-[var(--color-text-secondary)]">
             <BookOpen className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-            <span>Casos de Estudio & Documentación Notion</span>
+            <span>{t.projects.badge}</span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-extrabold text-[var(--color-text)] tracking-tight"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            Proyectos Destacados de Analítica
+            {t.projects.title}
           </h2>
           <p className="text-base text-[var(--color-text-secondary)]">
-            Selección de proyectos reales estructurados con la metodología CRISP-DM. Cada proyecto cuenta con su documentación técnica completa embebida directamente desde Notion.
+            {t.projects.description}
           </p>
         </motion.div>
 
@@ -63,17 +70,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, onOp
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           {categories.map((cat) => (
             <motion.button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-                selectedCategory === cat
+                selectedCategory === cat.id
                   ? 'bg-[var(--color-primary)] text-white shadow-sm'
                   : 'glass-card text-[var(--color-text-secondary)] hover:text-[var(--color-text)] border border-[var(--color-border)] shadow-sm'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {cat}
+              {cat.label}
             </motion.button>
           ))}
         </div>
@@ -125,10 +132,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects, onOp
                 className="font-bold text-[var(--color-text)] text-sm block"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                ¿Por qué documentar proyectos en Notion?
+                {t.projects.whyNotion}
               </span>
               <p className="text-[var(--color-text-secondary)]">
-                Notion permite presentar el ciclo de vida del dato: desde la definición del problema de negocio y diagramas ERD, hasta el código en Python/SQL y las conclusiones ejecutivas.
+                {t.projects.notionDescription}
               </p>
             </div>
           </div>

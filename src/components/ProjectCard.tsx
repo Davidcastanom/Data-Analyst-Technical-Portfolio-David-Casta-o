@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Project } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import {
   BookOpen,
   Github,
@@ -20,6 +21,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       className="group relative rounded-2xl glass-card border border-[var(--color-border)] transition-all duration-300 hover:shadow-md flex flex-col justify-between overflow-hidden"
@@ -41,12 +43,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
 
             {project.videoUrl && (
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1">
-                <Play className="w-3 h-3 text-emerald-600 fill-current" /> Video
+                <Play className="w-3 h-3 text-emerald-600 fill-current" /> {t.projects.video}
               </span>
             )}
             {project.featured && (
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-[var(--color-accent)]" /> Destacado
+                <Sparkles className="w-3 h-3 text-[var(--color-accent)]" /> {t.projects.featured}
               </span>
             )}
           </div>
@@ -69,7 +71,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
         <div className="p-3.5 rounded-xl glass-card border border-[var(--color-border)] space-y-1">
           <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--color-success)]">
             <TrendingUp className="w-4 h-4 shrink-0" />
-            <span>Impacto en el Negocio:</span>
+            <span>{t.projects.businessImpact}</span>
           </div>
           <p className="text-xs text-[var(--color-text)] font-medium leading-normal">
             {project.businessImpact}
@@ -113,7 +115,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpenModal }
           whileTap={{ scale: 0.97 }}
         >
           <BookOpen className="w-4 h-4 text-purple-300 group-hover/btn:scale-110 transition-transform" />
-          <span>Ver en Notion</span>
+          <span>{t.projects.viewInNotion}</span>
         </motion.button>
 
         {/* GitHub Repository Secondary Action */}

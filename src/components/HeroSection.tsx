@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { UserProfile, Project } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   BarChart3, 
   Database, 
@@ -47,6 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   projects, 
   onOpenConfigurator 
 }) => {
+  const { t } = useLanguage();
   return (
     <section id="inicio" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[var(--color-bg)] transition-colors duration-300">
       {/* Animated Background Gradient */}
@@ -84,7 +86,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Main Headline */}
             <motion.div variants={itemVariants} className="space-y-2">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text)] tracking-tight leading-[1.1]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                Hola, soy <span className="text-[var(--color-primary)]">{user.name}</span>
+                {t.hero.greeting} <span className="text-[var(--color-primary)]">{user.name}</span>
               </h1>
               <p className="text-xl sm:text-2xl font-semibold text-[var(--color-text)] tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                 {user.title} <span className="text-[var(--color-border)] font-normal">|</span> <span className="text-[var(--color-text-secondary)] font-medium">{user.specialty}</span>
@@ -99,10 +101,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Key Data Skills Badges */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-2 pt-1">
               {[
-                { icon: <Database className="w-3.5 h-3.5 text-[var(--color-primary)]" />, text: 'Python & Excel Avanzado' },
-                { icon: <BarChart3 className="w-3.5 h-3.5 text-[var(--color-accent)]" />, text: 'SAP HANA & Control de Inventarios' },
-                { icon: <Code2 className="w-3.5 h-3.5 text-[var(--color-text)]" />, text: 'HTML / CSS / JavaScript' },
-                { icon: <BookOpen className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />, text: 'IA Generativa & Automatización' },
+                { icon: <Database className="w-3.5 h-3.5 text-[var(--color-primary)]" />, text: t.hero.skills.pythonExcel },
+                { icon: <BarChart3 className="w-3.5 h-3.5 text-[var(--color-accent)]" />, text: t.hero.skills.sapInventory },
+                { icon: <Code2 className="w-3.5 h-3.5 text-[var(--color-text)]" />, text: t.hero.skills.webDev },
+                { icon: <BookOpen className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />, text: t.hero.skills.aiAutomation },
               ].map((badge, i) => (
                 <motion.span 
                   key={i}
@@ -124,7 +126,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 shadow-lg hover:shadow-xl transition-shadow"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                <span>Explorar Proyectos</span>
+                <span>{t.hero.exploreProjects}</span>
                 <ArrowRight className="w-4 h-4" />
               </motion.a>
 
@@ -135,16 +137,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-[var(--color-text)] glass-card hover:bg-[var(--color-card-hover)] transition-colors shadow-sm"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                <span>Contactar Conmigo</span>
+                <span>{t.hero.contactMe}</span>
               </motion.a>
             </motion.div>
 
             {/* Metrics Quick Highlights */}
             <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 pt-6 border-t border-[var(--color-border)] max-w-xl">
               {[
-                { value: `+${user.yearsOfExperience} Años`, label: 'Experiencia Operativa', color: 'var(--color-text)' },
-                { value: `${user.projectsCompleted}`, label: 'Proyectos Técnicos', color: 'var(--color-primary)' },
-                { value: 'EnCurso', label: 'Análisis de Datos Junior', color: 'var(--color-success)' },
+                { value: `+${user.yearsOfExperience}`, label: t.hero.operationalExperience, color: 'var(--color-text)' },
+                { value: `${user.projectsCompleted}`, label: t.hero.technicalProjects, color: 'var(--color-primary)' },
+                { value: t.hero.inProgress, label: t.hero.dataAnalysisJunior, color: 'var(--color-success)' },
               ].map((metric, i) => (
                 <motion.div 
                   key={i}
@@ -177,7 +179,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-full glass-card border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-secondary)] shadow-lg">
                 <span className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-                  En formación activa
+                  {t.hero.activelyTraining}
                 </span>
               </div>
             </div>

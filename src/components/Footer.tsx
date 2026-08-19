@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { UserProfile } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   BarChart2, 
   Github, 
@@ -16,6 +17,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ user }) => {
+  const { t } = useLanguage();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -35,25 +37,25 @@ export const Footer: React.FC<FooterProps> = ({ user }) => {
               <span className="font-bold text-[var(--color-text)] text-base tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{user.name}</span>
             </div>
             <p className="text-[var(--color-text-secondary)] max-w-sm leading-relaxed">
-              {user.title} especializado en modelos analíticos, dashboards ejecutivos y toma de decisiones basada en evidencia.
+              {user.title} {t.footer.bio}
             </p>
           </div>
 
           {/* Col 2: Navigation Links (3 Cols) */}
           <div className="md:col-span-3 space-y-2">
-            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Navegación</span>
+            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{t.footer.navigation}</span>
             <ul className="space-y-1.5 font-medium">
-              <li><a href="#inicio" className="hover:text-[var(--color-primary)] transition-colors">Inicio</a></li>
-              <li><a href="#proyectos" className="hover:text-[var(--color-primary)] transition-colors">Proyectos de Datos</a></li>
-              <li><a href="#habilidades" className="hover:text-[var(--color-primary)] transition-colors">Habilidades Técnicas</a></li>
-              <li><a href="#experiencia" className="hover:text-[var(--color-primary)] transition-colors">Experiencia Laboral</a></li>
-              <li><a href="#contacto" className="hover:text-[var(--color-primary)] transition-colors">Contacto</a></li>
+              <li><a href="#inicio" className="hover:text-[var(--color-primary)] transition-colors">{t.footer.home}</a></li>
+              <li><a href="#proyectos" className="hover:text-[var(--color-primary)] transition-colors">{t.footer.dataProjects}</a></li>
+              <li><a href="#habilidades" className="hover:text-[var(--color-primary)] transition-colors">{t.footer.technicalSkills}</a></li>
+              <li><a href="#experiencia" className="hover:text-[var(--color-primary)] transition-colors">{t.footer.workExperience}</a></li>
+              <li><a href="#contacto" className="hover:text-[var(--color-primary)] transition-colors">{t.footer.contact}</a></li>
             </ul>
           </div>
 
           {/* Col 3: Social & Links (4 Cols) */}
           <div className="md:col-span-4 space-y-3">
-            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Redes</span>
+            <span className="text-xs font-bold text-[var(--color-text)] uppercase tracking-wider block" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{t.footer.social}</span>
             <div className="flex items-center gap-3">
               <motion.a
                 href={user.githubUrl}
@@ -99,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({ user }) => {
 
         {/* Bottom copyright & scroll to top */}
         <div className="pt-8 border-t border-[var(--color-border)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[var(--color-text-secondary)] text-[11px]">
-          <p>© {new Date().getFullYear()} {user.name}. Portafolio de Analista de Datos.</p>
+          <p>© {new Date().getFullYear()} {user.name}. {t.footer.copyright}</p>
 
           <motion.button
             onClick={scrollToTop}
@@ -107,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ user }) => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span>Volver arriba</span>
+            <span>{t.footer.backToTop}</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </motion.button>
         </div>

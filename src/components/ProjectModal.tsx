@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import {
   X,
   BookOpen,
@@ -25,6 +26,7 @@ interface ProjectModalProps {
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   if (!project) return null;
 
+  const { t } = useLanguage();
   const [isCopied, setIsCopied] = React.useState(false);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
 
@@ -87,26 +89,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyLink}
-                title="Copiar enlace"
+                title={t.projectModal.copyLink}
                 className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium glass-card hover:opacity-80 transition-colors rounded-lg"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
                 {isCopied ? (
                   <>
                     <Check className="w-3.5 h-3.5" style={{ color: 'var(--color-success)' }} />
-                    <span style={{ color: 'var(--color-success)' }} className="font-semibold">Copiado</span>
+                    <span style={{ color: 'var(--color-success)' }} className="font-semibold">{t.projectModal.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Copiar</span>
+                    <span className="hidden sm:inline">{t.projectModal.copyLink}</span>
                   </>
                 )}
               </button>
 
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                title={isFullscreen ? 'Restaurar' : 'Pantalla Completa'}
+                title={isFullscreen ? t.projectModal.restore : t.projectModal.fullscreen}
                 className="p-2 glass-card hover:opacity-80 transition-colors rounded-lg"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
@@ -115,7 +117,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
               <button
                 onClick={onClose}
-                title="Cerrar"
+                title={t.projectModal.close}
                 className="p-2 glass-card hover:opacity-80 transition-colors rounded-lg ml-1"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
@@ -135,7 +137,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 style={{ backgroundColor: 'var(--color-text)', color: 'var(--color-bg)' }}
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                Ver Documentación en Notion
+                {t.projectModal.viewNotionDocs}
               </a>
             )}
             {project.githubUrl && (
@@ -147,7 +149,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 style={{ color: 'var(--color-text)' }}
               >
                 <Github className="w-3.5 h-3.5" />
-                Ver Código en GitHub
+                {t.projectModal.viewGitHubCode}
               </a>
             )}
             {project.demoUrl && (
@@ -159,7 +161,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 style={{ color: 'var(--color-text)' }}
               >
                 <Sparkles className="w-3.5 h-3.5" style={{ color: 'var(--color-accent)' }} />
-                Ver Demo en Vivo
+                {t.projectModal.viewLiveDemo}
               </a>
             )}
           </div>
@@ -170,7 +172,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <div className="p-4 rounded-xl bg-[var(--color-success)]/5 border border-[var(--color-success)]/15 space-y-1">
               <div className="flex items-center gap-2 font-bold text-sm" style={{ color: 'var(--color-success)' }}>
                 <TrendingUp className="w-5 h-5" />
-                <span>Resultado Principal de Negocio</span>
+                <span>{t.projectModal.mainBusinessResult}</span>
               </div>
               <p className="text-base font-semibold" style={{ color: 'var(--color-text)', fontFamily: "'Space Grotesk', sans-serif" }}>
                 {project.businessImpact}
@@ -181,7 +183,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {project.videoUrl && (
               <div className="space-y-2">
                 <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
-                  Video Demostración
+                  {t.projectModal.videoDemo}
                 </h4>
                 <div className="relative rounded-xl overflow-hidden border border-[var(--color-border)] shadow-lg bg-black">
                   <video
@@ -192,7 +194,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     poster=""
                   >
                     <source src={project.videoUrl} type="video/mp4" />
-                    Tu navegador no soporta la reproducción de videos.
+                    {t.projectModal.videoFallback}
                   </video>
                 </div>
               </div>
@@ -201,7 +203,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Full Description */}
             <div className="space-y-2">
               <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
-                Descripción General
+                {t.projectModal.fullDescription}
               </h4>
               <p className="leading-relaxed p-4 rounded-xl border border-[var(--color-border)] shadow-sm text-sm" style={{ backgroundColor: 'var(--color-card)', color: 'var(--color-text-secondary)' }}>
                 {project.fullDescription}
@@ -211,7 +213,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Key Metrics Grid */}
             <div className="space-y-2">
               <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
-                Indicadores Clave
+                {t.projectModal.keyMetrics}
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {project.keyMetrics.map((metric, idx) => (
@@ -226,7 +228,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Highlights */}
             <div className="space-y-2">
               <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
-                Puntos Destacados
+                {t.projectModal.highlights}
               </h4>
               <div className="space-y-2">
                 {project.highlights.map((highlight, idx) => (
@@ -241,7 +243,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Tags */}
             <div className="space-y-2">
               <h4 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
-                Stack Tecnológico
+                {t.projectModal.techStack}
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag, idx) => (
@@ -256,7 +258,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {project.datasetInfo && (
               <div className="p-3 rounded-xl text-xs flex items-center gap-2 shadow-sm border border-[var(--color-border)]" style={{ backgroundColor: 'var(--color-card)' }}>
                 <Database className="w-4 h-4 shrink-0" style={{ color: 'var(--color-accent)' }} />
-                <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>Dataset:</span>
+                <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>{t.projectModal.dataset}</span>
                 <span className="font-semibold" style={{ color: 'var(--color-text)' }}>{project.datasetInfo}</span>
               </div>
             )}

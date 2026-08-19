@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile } from '../types/portfolio';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   BarChart2, 
   Github, 
@@ -8,7 +9,8 @@ import {
   Menu, 
   X,
   Sun,
-  Moon
+  Moon,
+  Globe
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -24,6 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleDarkMode,
   onOpenConfigurator
 }) => {
+  const { t, language, toggleLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
@@ -46,11 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navLinks = [
-    { name: 'Inicio', href: '#inicio', id: 'inicio' },
-    { name: 'Proyectos', href: '#proyectos', id: 'proyectos' },
-    { name: 'Habilidades', href: '#habilidades', id: 'habilidades' },
-    { name: 'Experiencia', href: '#experiencia', id: 'experiencia' },
-    { name: 'Contacto', href: '#contacto', id: 'contacto' },
+    { name: t.nav.home, href: '#inicio', id: 'inicio' },
+    { name: t.nav.projects, href: '#proyectos', id: 'proyectos' },
+    { name: t.nav.skills, href: '#habilidades', id: 'habilidades' },
+    { name: t.nav.experience, href: '#experiencia', id: 'experiencia' },
+    { name: t.nav.contact, href: '#contacto', id: 'contacto' },
   ];
 
   return (
@@ -117,24 +120,37 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right CTA Actions */}
         <div className="hidden md:flex items-center gap-2.5">
+          {/* Language Toggle */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleLanguage}
+            title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            aria-label="Toggle Language"
+            className="flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-xl transition-all glass-card text-[var(--color-text)] hover:bg-[var(--color-card-hover)]"
+          >
+            <Globe className="w-4 h-4 text-[var(--color-primary)]" />
+            <span>{language === 'es' ? 'EN' : 'ES'}</span>
+          </motion.button>
+
           {onToggleDarkMode && (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onToggleDarkMode}
-              title={isDarkMode ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
-              aria-label="Cambiar Tema"
+              title={isDarkMode ? t.nav.lightMode : t.nav.darkMode}
+              aria-label={t.nav.toggleTheme}
               className="flex items-center gap-2 px-3 py-2 text-xs font-semibold rounded-xl transition-all glass-card text-[var(--color-text)] hover:bg-[var(--color-card-hover)]"
             >
               {isDarkMode ? (
                 <>
                   <Sun className="w-4 h-4 text-[var(--color-accent)]" />
-                  <span className="text-[var(--color-accent)]">Claro</span>
+                  <span className="text-[var(--color-accent)]">{t.nav.lightMode}</span>
                 </>
               ) : (
                 <>
                   <Moon className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                  <span>Oscuro</span>
+                  <span>{t.nav.darkMode}</span>
                 </>
               )}
             </motion.button>
@@ -167,11 +183,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile menu hamburger button & Theme Toggle */}
         <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={toggleLanguage}
+            title={language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+            aria-label="Toggle Language"
+            className="p-2 text-[var(--color-text)] glass-card rounded-lg"
+          >
+            <Globe className="w-4 h-4 text-[var(--color-primary)]" />
+          </button>
+
           {onToggleDarkMode && (
             <button
               onClick={onToggleDarkMode}
-              title={isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}
-              aria-label="Cambiar Tema"
+              title={isDarkMode ? t.nav.lightMode : t.nav.darkMode}
+              aria-label={t.nav.toggleTheme}
               className="p-2 text-[var(--color-text)] glass-card rounded-lg"
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-[var(--color-accent)]" /> : <Moon className="w-4 h-4" />}
@@ -212,6 +237,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="pt-3 border-t border-[var(--color-border)] flex flex-col gap-2">
+                <button
+                  onClick={toggleLanguage}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl glass-card text-[var(--color-text)]"
+                >
+                  <Globe className="w-4 h-4 text-[var(--color-primary)]" />
+                  <span>{language === 'es' ? 'Switch to English' : 'Cambiar a Español'}</span>
+                </button>
+
                 {onToggleDarkMode && (
                   <button
                     onClick={onToggleDarkMode}
@@ -220,12 +253,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {isDarkMode ? (
                       <>
                         <Sun className="w-4 h-4 text-[var(--color-accent)]" />
-                        <span>Cambiar a Modo Claro</span>
+                        <span>{t.nav.lightMode}</span>
                       </>
                     ) : (
                       <>
                         <Moon className="w-4 h-4" />
-                        <span>Cambiar a Modo Oscuro</span>
+                        <span>{t.nav.darkMode}</span>
                       </>
                     )}
                   </button>
